@@ -11362,6 +11362,12 @@ body {
   #layoutSidenav #layoutSidenav_nav {
     transform: translateX(0);
   }
+  #cli{
+  margin: 50px;
+  width: 700px;
+  height: 40%;
+  
+  }
   #layoutSidenav #layoutSidenav_content {
     margin-left: 0;
     transition: margin 0.15s ease-in-out;
@@ -11420,7 +11426,7 @@ body {
 
 .sb-topnav {
   padding-left: 0;
-  height: 56px;
+  height: 65px;
   z-index: 1039;
 }
 .sb-topnav .navbar-brand {
