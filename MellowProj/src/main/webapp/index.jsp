@@ -11,7 +11,91 @@
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
+
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        
+        
+        			
+        				<script>
+        				<!-- 날씨위젯 자바스크립트 -->
+						        (function(d, s, id) {
+						            if (d.getElementById(id)) {
+						                if (window.__TOMORROW__) {
+						                    window.__TOMORROW__.renderWidget();
+						                }
+						                return;
+						            }
+						            const fjs = d.getElementsByTagName(s)[0];
+						            const js = d.createElement(s);
+						            js.id = id;
+						            js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+						
+						            fjs.parentNode.insertBefore(js, fjs);
+						        })(document, 'script', 'tomorrow-sdk');
+						        
+						        
+						        
+						<!--시간위젯 자바스크립트 -->
+						    	var s, t; s = document.createElement("script"); s.type = "text/javascript";
+								s.src = "//cdn.dayspedia.com/js/dwidget.min.vb46adaa2.js";
+								t = document.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t);
+								s.onload = function() {
+									window.dwidget = new window.DigitClock();
+									window.dwidget.init("dayspedia_widget_58044d7e23cf17ec");
+								};
+								
+						<!--캘린더위젯 자바스크립트 -->
+						
+						var app = {
+								settings: {
+									container: $('.calendar'),
+									calendar: $('.front'),
+									days: $('.weeks span'),
+									form: $('.back'),
+									input: $('.back input'),
+									buttons: $('.back button')
+								},
+
+								init: function() {
+									instance = this;
+									settings = this.settings;
+									this.bindUIActions();
+								},
+
+								swap: function(currentSide, desiredSide) {
+									settings.container.toggleClass('flip');
+
+							    currentSide.fadeOut(900);
+							    currentSide.hide();
+							    desiredSide.show();
+
+								},
+
+								bindUIActions: function() {
+									settings.days.on('click', function(){
+										instance.swap(settings.calendar, settings.form);
+										settings.input.focus();
+									});
+
+									settings.buttons.on('click', function(){
+										instance.swap(settings.form, settings.calendar);
+									});
+								}
+							}
+
+							app.init();
+						
+	
+        				</script>
+        				
+        				
+        				
+      
+						
+						
+						
+        
+        
     </head>
     <body class="sb-nav-fixed">
     
@@ -58,15 +142,7 @@
 	
 	
 
-	<script>
-		var s, t; s = document.createElement("script"); s.type = "text/javascript";
-		s.src = "//cdn.dayspedia.com/js/dwidget.min.vb46adaa2.js";
-		t = document.getElementsByTagName('script')[0]; t.parentNode.insertBefore(s, t);
-		s.onload = function() {
-			window.dwidget = new window.DigitClock();
-			window.dwidget.init("dayspedia_widget_58044d7e23cf17ec");
-		};
-	</script>
+
 	<!--/DPDC-->
 	</div><!--Dayspedia.com widget ENDS-->
             
@@ -191,22 +267,129 @@
 
         </div>
         </div>
-                 
-           
-   
-  
-                <footer class="py-4 bg-light mt-auto">
+        
+         
+          <!-- inspired by http://colorhunt.co/c/8184 and 
+    		https://dribbble.com/shots/2407357-Calendar%60 -->
+
+    <div class="container">
+      <div class="calendar">
+        <div class="front">
+          <div class="current-date">
+            <h1>Friday 29th</h1>
+            <h1>July 2022</h1>	
+          </div>
+
+          <div class="current-month">
+            <ul class="week-days">
+              <li>MON</li>
+              <li>TUE</li>
+              <li>WED</li>
+              <li>THU</li>
+              <li>FRI</li>
+              <li>SAT</li>
+              <li>SUN</li>
+            </ul>
+
+            <div class="weeks">
+              <div class="first">
+                <span class="last-month">28</span>
+                <span class="last-month">29</span>
+                <span class="last-month">30</span>
+                <span class="last-month">31</span>
+                <span>01</span>
+                <span>02</span>
+                <span>03</span>
+              </div>
+
+              <div class="second">
+                <span>04</span>
+                <span>05</span>
+                <span class="event">06</span>
+                <span>07</span>
+                <span>08</span>
+                <span>09</span>
+                <span>10</span>
+              </div>
+
+              <div class="third">
+                <span>11</span>
+                <span>12</span>
+                <span>13</span>
+                <span>14</span>
+                <span class="active">15</span>
+                <span>16</span>
+                <span>17</span>
+              </div>
+
+              <div class="fourth">
+                <span>18</span>
+                <span>19</span>
+                <span>20</span>
+                <span>21</span>
+                <span>22</span>
+                <span>23</span>
+                <span>24</span>
+              </div>
+
+              <div class="fifth">
+                <span>25</span>
+                <span>26</span>
+                <span>27</span>
+                <span>28</span>
+                <span>29</span>
+                <span>30</span>
+                <span>31</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="back">
+          <input placeholder="What's the event?">
+          <div class="info">
+            <div class="date">
+              <p class="info-date">
+              Date: <span>Jul 29th, 2022</span>
+              </p>
+              <p class="info-time">
+                Time: <span>6:35 PM</span>
+              </p>
+            </div>
+            <div class="address">
+              <p>
+                Address: <span>129 W 81st St, New York, NY</span>
+              </p>
+            </div>
+            <div class="observations">
+              <p>
+                Observations: <span>Be there 15 minutes earlier</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="save">
+              Save <i class="ion-checkmark"></i>
+            </button>
+            <button class="dismiss">
+              Dismiss <i class="ion-android-close"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+         <footer class="py-4 bg-light mt-auto mainfooter">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+
                         </div>
                     </div>
                 </footer>
+                  
+                
             </div>
         </div>
         
