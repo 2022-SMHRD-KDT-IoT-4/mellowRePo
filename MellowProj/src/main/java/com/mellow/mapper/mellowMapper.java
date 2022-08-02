@@ -1,5 +1,7 @@
 package com.mellow.mapper;
 
-public interface mellowMapper {
+import com.mellow.domain.UserVO;
 
+public interface mellowMapper {
+	public UserVO userLogin(UserVO vo);
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mellow.domain.UserVO;
 import com.mellow.mapper.mellowMapper;
 import com.mysql.cj.Session;
 
@@ -35,7 +36,20 @@ public class MellowController {
 	   
    }
    
-   
+   @RequestMapping("/login.do")
+   public String login(UserVO vo, Model model) {
+	   
+	   UserVO result = mapper.userLogin(vo);
+	   
+	   if(result!=null) {
+		   System.out.println("login success!");
+		   model.addAttribute("vo", vo);
+	   return "../../tables";
+	   }else {
+		   System.out.println("login error!");
+		return "../../login";
+	   }
+   }
   
    
 }
