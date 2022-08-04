@@ -11357,6 +11357,7 @@ textarea.form-control-lg {
   flex-grow: 1;
   min-height: calc(100vh - 56px);
   margin-left: -225px;
+  overflow: visible;
 }
 
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -11740,6 +11741,11 @@ textarea.form-control-lg {
   left: 300px;
   top: 150px;
 }
+.cos_sub_reg h1{
+  position: absolute;
+  left: 300px;
+  top: 150px;
+}
 
 .cos_btn {
   text-align: center;
@@ -11788,12 +11794,55 @@ textarea.form-control-lg {
 .cos_table td{
 	text-align: center;
 }
+.cos_table{
+	position: sticky;
+}
 
 .cos_list::-webkit-scrollbar {
 	display:none /* Chrome , Safari , Opera */
 }
 
+.trash_img{
+	position: absolute;
+	top:0;
+	right: 0;
+}
 
+.trash_btn{
+	position: absolute;
+	top:0;
+	right: 0;
+}
+
+.cos_circle{
+	position: absolute;
+	left: 650px;
+	top: 150px;
+	
+}
+.cos_bar{
+	position: absolute;
+	top:900px;
+	left:780px;
+}
+
+.cos_barcode{
+	width: 400px;
+}
+
+.cos_bar_res{
+	position: absolute;
+	top: 1300px;
+	left: 730px;
+}
+
+.cos_bar_res input{
+	width: 500px;
+}
+.form-horizontal {
+  margin-top: 100px;
+  padding: 20px 20px 0;
+}
 
 
 /*

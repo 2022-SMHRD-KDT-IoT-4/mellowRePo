@@ -6,8 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link href="css/login.css" rel="stylesheet" />
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script type="text/javascript" src="js/login.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/login.js"></script>
+	
 </head>
 <body>
 
@@ -28,7 +29,7 @@
 							<label for="pw">PASSWORD</label>
 					</div>
 					<div class="btn-area">
-						 <button type="submit">LOGIN</button>
+						 <button id="btn" type="submit">LOGIN</button>
 					</div>
 				</form>
 				
@@ -40,6 +41,37 @@
 		</section>
 		
 		
+		<script>
+		
+		$(document).ready(function(){
+			
+			  var id = $('#id');
+			   var pw = $('#pw');
+			   var btn = $('#btn');
+						   
+						  
+						   $(btn).on('click', function() {
+								if($(id).val()==""){
+									$(id).next('label').addClass('warning');
+									setTimeout(() => {
+										$('label').removeClass('warning');
+									}, 1500);
+									
+								}
+								else if($(pw).val()==""){
+									$(pw).next('label').addClass('warning');
+									setTimeout(() => {
+										$('label').removeClass('warning');
+									}, 1500);
+								}
+						});
+			
+			
+		});
+		
+		
+		 
+		</script>
 		
 	
 </body>
