@@ -60,14 +60,17 @@ public class MellowController {
 		}
 	}
 
+	// 화장품 api담아오기
 	@RequestMapping("/cosmetic.do")
 	public void cosmeticInfo() {
 		moduleDAO dao = new moduleDAO();
-		cosmeticinfoVO[] vo = dao.cosmeticInfo();
-		for (int i = 0; i < vo.length; i++) {
-			System.out.println(i);
-			System.out.println(vo[i]);
+		ArrayList<cosmeticinfoVO> ar = dao.cosmeticInfo();
+		if (!ar.isEmpty()) {
+			System.out.println("ar값 불러옴");
+			
+			// insert mapper
 		}
+
 	}
 
 	// 라즈베리파이에서 바코드 모듈 값 받아오기
@@ -129,13 +132,11 @@ public class MellowController {
 		return btnOp;
 
 	}
-	
+
 	@RequestMapping("/btn.do")
 	public @ResponseBody void tempBtn(String btnoption) {
 		btnOp = btnoption;
 
 	}
-	
-	
 
 }

@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -28,8 +29,9 @@ public class moduleDAO {
 	public String cos_pa = ""; // 자외선(PA)
 	public String cos_file = ""; // 사진 파일
 
-	public cosmeticinfoVO[] cosmeticInfo() {
-
+	public ArrayList<cosmeticinfoVO> cosmeticInfo() {
+		ArrayList<cosmeticinfoVO> ar = new ArrayList<cosmeticinfoVO>();
+		
 		StringBuilder urlBuilder = new StringBuilder(
 				"http://apis.data.go.kr/1471000/FtnltCosmRptPrdlstInfoService/getRptPrdlstInq"); /* URL */
 		try {
@@ -42,13 +44,13 @@ public class moduleDAO {
 			urlBuilder.append(
 					"&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /* 페이지 번호 */
 			urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
-					+ URLEncoder.encode("100", "UTF-8")); /* 한 페이지 결과 수 */
+					+ URLEncoder.encode("10", "UTF-8")); /* 한 페이지 결과 수 */
 			urlBuilder.append("&" + URLEncoder.encode("type", "UTF-8") + "="
 					+ URLEncoder.encode("json", "UTF-8")); /* 응답데이터 형식(xml/json) default : xml */
 			urlBuilder.append(
 					"&" + URLEncoder.encode("item_seq", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /* 품목일련번호 */
 			urlBuilder.append("&" + URLEncoder.encode("item_name", "UTF-8") + "="
-					+ URLEncoder.encode("케어존닥터솔루션노르데나우워터크리미선", "UTF-8")); /* 품목명 */
+					+ URLEncoder.encode("sdgsgsdfgsdf", "UTF-8")); /* 품목명 */
 			urlBuilder.append("&" + URLEncoder.encode("cosmetic_report_seq", "UTF-8") + "="
 					+ URLEncoder.encode("", "UTF-8")); /* 화장품보고일련번호 */
 			URL url;
@@ -83,17 +85,18 @@ public class moduleDAO {
 			JSONArray parse_listArr = (JSONArray) body.get("items");
 
 			String miseType = "";
-			cosmeticinfoVO[] ar = new cosmeticinfoVO[parse_listArr.size()];
+			
 
 			// 객체형태로
 			// {"returnType":"json","clearDate":"—",…….},…
+			if(parse_listArr!=null) {
 			for (int i = 0; i < parse_listArr.size(); i++) {
 
 				JSONObject cos_list = (JSONObject) parse_listArr.get(i);
 
 				cosmeticinfoVO vo = new cosmeticinfoVO(barcode, cos_name, cos_type, using_date, brand_name, cos_dosage,
 						cos_effect, cos_spf, cos_pa);
-				// ar[i]=vo;
+				
 				if (cos_list.get("ITEM_NAME") != null) {
 					cos_name = cos_list.get("ITEM_NAME").toString();
 				}
@@ -135,21 +138,21 @@ public class moduleDAO {
 				vo.setCos_spf(cos_spf);
 				System.out.println("DAO2 :" + vo);
 				// vo.setSPF(cos_list.get("SPF").toString());
-				ar[i] = vo;
+				ar.add(vo);
+				//System.out.println("vo: " +vo);
+//				vo.setCos_name("");
+//				vo.setBrand_name("");
+//				vo.setCos_dosage("");
+//				vo.setCos_effect("");
+//				vo.setCos_pa("");
+//				vo.setCos_spf("");
 
-				vo.setCos_name("");
-				vo.setBrand_name("");
-				vo.setCos_dosage("");
-				vo.setCos_effect("");
-				vo.setCos_pa("");
-				vo.setCos_spf("");
+				System.out.println("arr : "+ar);
 
-				System.out.println(ar[i]);
-
+			}
 			}
 			rd.close();
 			conn.disconnect();
-			return ar;
 			// System.out.println(sb.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -158,14 +161,10 @@ public class moduleDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return null;
+		System.out.println("arr : "+ar);
+		
+			return ar;
+		
 	}
 	
-	
-	// 유통기한 꺼내오기
-	public cosmeticinfoVO[] cosmeticInfo2() {
-	
-	return null; 
-	}
 }
