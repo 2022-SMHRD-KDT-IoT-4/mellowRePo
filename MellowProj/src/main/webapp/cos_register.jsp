@@ -295,28 +295,116 @@
 
 			<div class="cos_bar">
 
-				<input class="cos_barcode" type="text" placeholder="바코드: ">
-				<input class="cos_barcode_btn btn-primary disabled" type="button"
-					value="입력">
+
+
+				<form class="form-inline" action="">
+				  <div class="mb-3 row">
+				  <div class="col-sm-10_sel">
+					<label for="staticEmail" class="col-sm-2_sel col-form-label">바코드</label>
+					<input type="text" class="form-control" id="staticEmail" placeholder="640509 040147">
+					<button type="submit" class="btn btn-outline-warning cos_sel">Submit</button>
+					</div>
+					</div>
+				</form>
+
+				<!--  
+				<form class="form-horizontal_1">
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">바코드</label>
+						<div class="col-sm-10_sel">
+							<input type="text" class="form-control" id="staticEmail"
+								placeholder="640509 040147">
+						    <button type="submit" class="btn btn-outline-warning cos_sel">조회</button>
+						</div>
+					</div>
+				</form>
+				-->
+
+
 
 			</div>
+
+
+			<hr class="hr1">
 
 
 
 			<div class="cos_bar_res">
 
+				<img class="cos_found" src="assets/img/found.png" width="350px"
+					height="300px" />
+
+
 				<form class="form-horizontal">
-					<div class="form-group">
+
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">화장품
+							종류</label>
 
 						<div class="col-sm-10">
-							<span>화장품 종류</span><input class="form-control" type="text"
-								placeholder="member1@email.com" disabled>
+							<select class="form-select form-select1"
+								aria-label="Default select example">
+								<option disabled selected>화장품 종류 선택</option>
+								<option value="1">스킨</option>
+								<option value="2">토너</option>
+								<option value="3">로션</option>
+								<option value="4">크림</option>
+								<option value="5">에센스</option>
+								<option value="6">세럼</option>
+								<option value="7">클렌저</option>
+								<option value="8">자외선차단제</option>
+								<option value="9">메이크업 베이스</option>
+								<option value="10">파우더</option>
+								<option value="11">팩트</option>
+								<option value="12">아이쉐도우</option>
+								<option value="13">블러셔</option>
+								<option value="14">아이라이너</option>
+								<option value="15">마스카라</option>
+								<option value="16">립제품</option>
+
+
+							</select>
+						</div>
+
+					</div>
+
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">화장품명</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="staticEmail"
+								placeholder="N°1 DE CHANEL 레드 까멜리아 파운데이션">
 						</div>
 					</div>
-					</form>
+
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">유통기한</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="staticEmail"
+								placeholder="2022.09.27">
+						</div>
+					</div>
+
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">사용기한</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="staticEmail"
+								placeholder="2022.07.25 ~ 2023.04.18">
+						</div>
+					</div>
+
+					<div class="col-12_reg">
+						<button type="submit" class="btn btn-outline-primary submit_reg1">등록</button>
+						<button type="submit" class="btn btn-outline-danger submit_reg2">취소</button>
+					</div>
+
+
+
+
+				</form>
+
 			</div>
-			
-			
+
+
 
 
 
