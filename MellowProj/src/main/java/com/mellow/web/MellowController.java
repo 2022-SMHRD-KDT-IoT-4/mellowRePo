@@ -34,6 +34,7 @@ import com.mysql.cj.Session;
 // POJO임을 명시하는 어노테이션
 @Controller
 public class MellowController {
+
 	public static String btnOp = "";
 
 	@Autowired // self service
@@ -136,4 +137,5 @@ public class MellowController {
 	}
 	
 	
+
 }
