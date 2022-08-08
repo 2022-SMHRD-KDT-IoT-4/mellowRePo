@@ -296,15 +296,15 @@
 			<div class="cos_bar">
 
 
-
-				<form class="form-inline" action="">
-				  <div class="mb-3 row">
-				  <div class="col-sm-10_sel">
-					<label for="staticEmail" class="col-sm-2_sel col-form-label">바코드</label>
-					<input type="text" class="form-control" id="staticEmail" placeholder="640509 040147">
-					<button type="submit" class="btn btn-outline-warning cos_sel">Submit</button>
+				<form class="form-inline" action="/action_page.php">
+				
+				<div class="col-sm-10_sel">
+					<div class="barcode_list">
+					<label class="col-sm-2_sel col-form-label" for="barcode">Barcode</label> 
+					<input class="form-control" type="email" id="barcode_id" placeholder="Please scan the barcode" name="barcode_name">
+					<button class="btn btn-outline-warning cos_sel" type="submit">검색</button>
 					</div>
-					</div>
+				</div>
 				</form>
 
 				<!--  
