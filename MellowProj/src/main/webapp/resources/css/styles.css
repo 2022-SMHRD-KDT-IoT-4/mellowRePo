@@ -11900,13 +11900,39 @@ textarea.form-control-lg {
 }
 
 .col-sm-10_sel{
-    flex: 0 0 auto;
-    width: 100%;
+	display: flex;
+    flex-direction: row;
+    width: 650px;
+    position: absolute;
+    left: -110px;
   }
 
 .col-sm-2_sel{
 	flex: 0 0 auto;
-    width: 40%;
+    width: 80px;
+    font-weight: bold;
+}
+
+.barcode_list{
+	width: 100%;
+    display: flex;
+}
+.cos_sel{
+	margin-left: 10px;
+	width: 80px;
+}
+.fri_div{
+	padding-bottom: 50px;
+}
+.fri{
+	position: absolute;
+	left: 450px;
+	top: 350px;
+}
+.fri_div h1{
+  position: absolute;
+  left: 350px;
+  top: 130px;
 }
 
 
