@@ -16,7 +16,7 @@
 				<h2>melloW</h2>
 				<h1>W</h1>
 				<h2>Warehouse</h2>
-				<form action="login.do">
+				<form action="login.do" method="post">
 					<div class="int-area">
 							<input type="text" name="user_id" id="id"
 							autocapitalize="off" required>
