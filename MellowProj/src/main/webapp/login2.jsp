@@ -16,15 +16,15 @@
 				<h2>melloW</h2>
 				<h1>W</h1>
 				<h2>Warehouse</h2>
-				<form action="">
+				<form action="login.do" method="post">
 					<div class="int-area">
-							<input type="text" name="id" id="id"
+							<input type="text" name="user_id" id="id"
 							autocapitalize="off" required>
 							<label for="id">USER NAME</label>
 					</div>		
 					
 					<div class="int-area">
-							<input type="password" name="pw" id="pw"
+							<input type="password" name="user_pw" id="pw"
 							autocapitalize="off" required>
 							<label for="pw">PASSWORD</label>
 					</div>

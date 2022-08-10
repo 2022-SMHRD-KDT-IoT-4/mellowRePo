@@ -25,8 +25,8 @@
 <script src="js/scripts.js"></script>
 <script
 	src="https://cdnjs.cloudflare./ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script src="js/chart-area-demo.js"></script>
-<script src="js/chart-bar-demo.js"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
 <script src="js/datatables-simple-demo.js"></script>
 
@@ -278,130 +278,22 @@
 			</nav>
 		</div>
 
-	</div>
-	
+
 		<div id="layoutSidenav_content">
 		
-		<div class="cos_sub">
-		 <h1>화장품 목록 조회</h1>
-		 <div class="cos_btn">
-		 <button class="cos_all btn btn-primary">전체</button>
-		 <button class="cos_open btn btn-success">개봉</button>
-		 <button class="cos_unopened btn btn-success">미개봉</button>
-		 </div>
-		 
-		 <div class="cos_reg_div">
-		 <img src="assets/img/cosmetics_reg.png" width="50px" height="40px" />
-		 <button class="cos_reg btn btn-warning">화장품 등록</button>
-		 </div>
-		 
-		</div>
-		
-		<div class="cos_list">
-			 
-			 <div class="cos_item">
-			 
-			 		<table class="cos_table">
-			 		<tr>
-			 			<td><img src="assets/img/chanel.png" width="200px;" height="150px;" /></td>
-			 		</tr>
-			 		<tr>
-			 			<td>샤넬 수블리마지 르 라움</td>
-					</tr>
-					
-					<tr>
-						<td>등록 : 2022.07.25</td>
-					</tr>
-					<tr>
-						<td>폐기 : 2023.03.21</td>
-					</tr>
-					
-			 		
-			 		</table>	
-			 		 		
-			 </div>
-			 
-			  <div class="cos_item">
-			 
-			 		<table class="cos_table">
-			 		<tr>
-			 			<td><img src="assets/img/chanel.png" width="200px;" height="150px;" /></td>
-			 		</tr>
-			 		<tr>
-			 			<td>샤넬 수블리마지 르 라움</td>
-					</tr>
-					
-					<tr>
-						<td>등록 : 2022.07.25</td>
-					</tr>
-					<tr>
-						<td>폐기 : 2023.03.21</td>
-					</tr>
-					
-			 		
-			 		</table>	
-			 		 		
-			 </div>
-			 
-			  <div class="cos_item">
-			 
-			 		<table class="cos_table">
-			 		<tr>
-			 			<td><img src="assets/img/chanel.png" width="200px;" height="150px;" /></td>
-			 		</tr>
-			 		<tr>
-			 			<td>샤넬 수블리마지 르 라움</td>
-					</tr>
-					
-					<tr>
-						<td>등록 : 2022.07.25</td>
-					</tr>
-					<tr>
-						<td>폐기 : 2023.03.21</td>
-					</tr>
-					
-			 		
-			 		</table>	
-			 		 		
-			 </div>
-			 
-			  <div class="cos_item">
-			 
-			 		<table class="cos_table">
-			 		<tr>
-			 			<td><img src="assets/img/chanel.png" width="200px;" height="150px;" /></td>
-			 		</tr>
-			 		<tr>
-			 			<td>샤넬 수블리마지 르 라움</td>
-					</tr>
-					
-					<tr>
-						<td>등록 : 2022.07.25</td>
-					</tr>
-					<tr>
-						<td>폐기 : 2023.03.21</td>
-					</tr>
-					
-			 		
-			 		</table>	
-			 		 		
-			 </div>
-			 
-			
-			 
-			 
-		
-			 
-			 
-			 
-		</div>
-		
-		
+	     	<div class="fri_div">
+
+				<h1>냉장고 온도 제어</h1>
+				    <img class="fri" src="assets/img/fridge.png" width="450px"
+					height="450px" />
+
+			</div>
 
 
 
 
 		</div>
+	</div>
 
 
 

@@ -50,7 +50,7 @@ public class moduleDAO {
          urlBuilder.append(
                "&" + URLEncoder.encode("item_seq", "UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /* 품목일련번호 */
          urlBuilder.append("&" + URLEncoder.encode("item_name", "UTF-8") + "="
-               + URLEncoder.encode("sdgsgsdfgsdf", "UTF-8")); /* 품목명 */
+               + URLEncoder.encode("케어존닥터솔루션노르데나우워터크리미선", "UTF-8")); /* 품목명 */
          urlBuilder.append("&" + URLEncoder.encode("cosmetic_report_seq", "UTF-8") + "="
                + URLEncoder.encode("", "UTF-8")); /* 화장품보고일련번호 */
          URL url;
@@ -95,7 +95,7 @@ public class moduleDAO {
             JSONObject cos_list = (JSONObject) parse_listArr.get(i);
 
             cosmeticinfoVO vo = new cosmeticinfoVO(barcode, cos_name, cos_type, using_date, brand_name, cos_dosage,
-                  cos_effect, cos_spf, cos_pa);
+                  cos_effect, cos_spf, cos_pa,cos_file);
             
             if (cos_list.get("ITEM_NAME") != null) {
                cos_name = cos_list.get("ITEM_NAME").toString();
