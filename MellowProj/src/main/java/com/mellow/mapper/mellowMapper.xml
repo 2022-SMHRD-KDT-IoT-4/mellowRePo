@@ -13,7 +13,7 @@
 	</insert>
 
 	<select id="cosmeticList" resultType="com.mellow.domain.CosmeticVO">
-		select a.cos_name, b.cos_type,b.open_yn, b.open_date, ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date 
+		select b.req_seq, a.cos_name, b.cos_type,b.open_yn, b.open_date, ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date 
 		from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c 
 		where a.barcode = b.barcode 
 		and b.cos_type = c.cos_type 
@@ -26,5 +26,32 @@
 		user_pw=#{user_pw}
 	</select>
 	
+	<delete id="cosmetic_delete" parameterType="com.mellow.domain.CosmeticVO">
+	    delete tbl_user_cosmetic where req_seq=#{req_seq}
+	</delete>
+
+
+	<select id="cosmeticlistopen" resultType="com.mellow.domain.CosmeticVO">
+		select b.req_seq, a.cos_name, b.cos_type,b.open_yn, b.open_date,
+		ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
+		from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
+		where a.barcode = b.barcode
+		and b.cos_type = c.cos_type
+		and b.open_yn='Y'
+		order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
+		discard_date END
+	</select>
+
+	<select id="cosmeticlistclose" resultType="com.mellow.domain.CosmeticVO">
+		select b.req_seq, a.cos_name, b.cos_type,b.open_yn, b.open_date,
+		ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
+		from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
+		where a.barcode = b.barcode
+		and b.cos_type = c.cos_type
+		and b.open_yn='N'
+		order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
+		discard_date END
+	</select>
+		
      
 </mapper>
