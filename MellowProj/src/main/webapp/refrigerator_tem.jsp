@@ -86,21 +86,19 @@
 
 
 
-	<script>
-	<!-- 시간위젯 자바스크립트 -->
-	
-
-		var s, t;
-		s = document.createElement("script");
-		s.type = "text/javascript";
-		s.src = "//cdn.dayspedia.com/js/dwidget.min.vb46adaa2.js";
-		t = document.getElementsByTagName('script')[0];
-		t.parentNode.insertBefore(s, t);
-		s.onload = function() {
-			window.dwidget = new window.DigitClock();
-			window.dwidget.init("dayspedia_widget_58044d7e23cf17ec");
-		};
-	</script>
+<script>
+<!-- 시간위젯 자바스크립트 -->
+	var s, t;
+	s = document.createElement("script");
+	s.type = "text/javascript";
+	s.src = "//cdn.dayspedia.com/js/dwidget.min.vb46adaa2.js";
+	t = document.getElementsByTagName('script')[0];
+	t.parentNode.insertBefore(s, t);
+	s.onload = function() {
+		window.dwidget = new window.DigitClock();
+		window.dwidget.init("dayspedia_widget_58044d7e23cf17ec");
+	};
+</script>
 
 
 </head>
@@ -280,18 +278,41 @@
 
 
 		<div id="layoutSidenav_content">
-		
-	     	<div class="fri_div">
 
+			<div class="fri_div">
+					
+					
 				<h1>냉장고 온도 제어</h1>
-				    <img class="fri" src="assets/img/fridge.png" width="450px"
+				<img class="fri" src="assets/img/fridge.png" width="450px"
 					height="450px" />
+					
+	
+					<div class="fri_tem">
+					
+						<span class="fri_tem_text" id="inputGroup-sizing-lg">현재 온도</span>
+						<span class="fri_tem_span">15°C</span>
+						
+					</div>
+					
+					<!--
+					<div id="slider_1">
+						<div id="number">20°C</div>
+						<input id="slider" type="range" min="10" max="20" step="5" value="20">
+					</div>
+					 -->
+					
+					
+					<div id="slider_btn">	
+					
+								
+								<input class="btn_1 btn btn-warning " type="button" value="크림/오일/밤 20°C"/>
+								<input class="btn_2 btn btn-success" type="button" value="기본 온도 15°C"/>
+								<input class="btn_3 btn btn-primary" type="button"value="크림/오일/밤 10°C"/>
+					
+					</div>
+					
 
-			</div>
-
-
-
-
+			     </div>
 		</div>
 	</div>
 
@@ -301,8 +322,27 @@
 
 
 
-	
 
+<script>
+		var slider = document.getElementById("slider");
+		
+		var number = document.getElementById("number");
+		var cel = '°C';
+		
+		slider.oninput = function(){
+			number.innerHTML = this.value+cel;
+			
+			if(slider.value == '15'){
+				number.style.backgroundColor = '#1E90FF';
+			}
+			else if(slider.value == '10'){
+				number.style.backgroundColor = '#0000CD';
+			}else{
+				number.style.backgroundColor = '#00bfff';
+			}
+		}
+		
+</script>
 
 </body>
 </html>

@@ -57,14 +57,10 @@
 	font-family: Arial;
 	background-position: 50% 50%;
 	margin-bottom: 1%;
-	margin-left: 26%; background-repeat : no-repeat;
+	background-repeat: no-repeat;
 	background-size: cover;
 	overflow: hidden;
-	user-select: none;
-	width: 30%;
-	background-image: none;
-	background-color: initial;
-	background-repeat: no-repeat;
+	user-select: none
 }
 
 .DPDCh {
@@ -119,7 +115,9 @@
 		<!--Dayspedia.com widget-->
 		<div class="DPDC" cityid="54406" lang="en"
 			id="dayspedia_widget_58044d7e23cf17ec" host="https://dayspedia.com"
-			ampm="true" nightsign="true" sun="false" auto="false">
+			ampm="true" nightsign="true" sun="false"
+			style="width: 100%; background-image: none; background-color: initial;"
+			auto="false">
 
 
 
@@ -135,7 +133,10 @@
 				style="font-size: 48px; text-align: center; margin-left: auto; margin-right: auto;">
 				<span class="DPDCth">0</span><span class="DPDCtm">0</span><span
 					class="DPDCts" style="display: inline-block;"></span><span
-					class="DPDCt12" style="display: inline-block;"></span>
+					class="DPDCt12" style="display: inline-block;"></span> <span
+					class="DPDCdt"
+					style="font-size: 12px; text-align: center; margin-left: auto; margin-right: auto;">Thu,
+					July 28</span>
 			</div>
 
 			<div class="DPDCd"
@@ -161,16 +162,14 @@
 		<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
-				role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span
-					class="menu_text">메뉴</span><i class="fas fa-dice-d20"></i>
-			</a>
+				role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
+					class="fas fa-user fa-fw"></i></a>
 				<ul class="dropdown-menu dropdown-menu-end"
 					aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="cos_retrieve.jsp">화장품
-							목록 조회</a></li>
-					<li><a class="dropdown-item" href="refrigerator_tem.jsp">냉장고
-							온도 제어</a></li>
-					<li><a class="dropdown-item" href="">거울 LED 제어</a></li>
+					<li><a class="dropdown-item" href="#!">Settings</a></li>
+					<li><a class="dropdown-item" href="#!">Activity Log</a></li>
+					<li><hr class="dropdown-divider" /></li>
+					<li><a class="dropdown-item" href="#!">Logout</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -179,165 +178,69 @@
 
 
 
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark"
+				id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						
+						
+						
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapsePages" aria-expanded="false"
+							aria-controls="collapsePages">
+							<div class="fas fa-list">
+								<i class="fas fa-book-open"></i>
+							</div> My cosmetics list 
+						</a>
+						
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapsePages" aria-expanded="false"
+							aria-controls="collapsePages">
+							<div class="fas fa-barcode">
+								<i class="fas fa-book-open"></i>
+							</div> Cosmetics registration
+						</a>
+						
+					   <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapsePages" aria-expanded="false"
+							aria-controls="collapsePages">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-book-open"></i>
+							</div> 
+						</a>
+						
+						
+						
+						
+						
+					</div>
+				</div>
+			</nav>
+		</div>
+
+
+		<div id="layoutSidenav_content">
+
+			<div id=cli>
+
+				<div class="tomorrow" data-location-id="065362" data-language="KO"
+					data-unit-system="METRIC" data-skin="light"
+					data-widget-type="upcoming"
+					style="padding-bottom: 22px; position: relative; height: 500px; width: 500px;"></div>
+			   </div>
 
 
 
-	<div id="layoutSidenav_content">
-	
-	
-		<div class="cos_list">
+
+
+
 		
-			<div class="cos_sub">
-				<h5>보유 화장품 목록</h5>
-			</div>
-			
-			
-			
-	<div class="cos_btn_div">
-			
-			<div class="cos_btns">
-				<input type="button" class="btn btn-outline-success btn-rounded" data-mdb-ripple-color="dark" value="전체">
-				<input type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" value="미개봉">
-				<input type="button" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-color="dark" value="개봉">
-			</div>
-				
-			<div class="cos_reg_btn">
-				 <input type="button" class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" value="등록">
-			</div>
-			
+
+
+		</div>
 	</div>
-			
-			
-			
-			
-			<div class="cos_reg_div">
-			
-				<div class="cos_item">
-			 
-			 		<table class="cos_table">
-			 		<tr>
-			 			<td><img class="cos_img" src="assets/img/chanel.png" width="200px;" height="150px;" /></td>	 			
-			 			<td><img class="trash_img" src="assets/img/trash-can.png" width="20px;" height="20px;" /></td>
-
-			 		</tr>
-			 		<tr>
-			 			<td>샤넬 수블리마지 르 라움</td>
-					</tr>
-					
-					<tr>
-						<td>종류 : 로션</td>
-					</tr>
-					<tr>
-						<td>폐기 : 2023.03.21</td>
-					</tr>
-					
-			 		
-			 		</table>	
-			 		 		
-			     </div>
-			     
-			     
-			     <div class="cos_item">
-			 
-			 		<table class="cos_table">
-			 		<tr>
-			 			<td><img class="cos_img" src="assets/img/chanel.png" width="200px;" height="150px;" /></td>	 			
-			 			<td><img class="trash_img" src="assets/img/trash-can.png" width="20px;" height="20px;" /></td>
-
-			 		</tr>
-			 		<tr>
-			 			<td>샤넬 수블리마지 르 라움</td>
-					</tr>
-					
-					<tr>
-						<td>종류 : 파운데이션</td>
-					</tr>
-					<tr>
-						<td>폐기 : 2023.03.21</td>
-					</tr>
-					
-			 		
-			 		</table>	
-			 		 		
-			     </div>
-			     
-			     
-			     <div class="cos_item">
-			 
-			 		<table class="cos_table">
-			 		<tr>
-			 			<td><img class="cos_img" src="assets/img/chanel.png" width="200px;" height="150px;" /></td>	 			
-			 			<td><img class="trash_img" src="assets/img/trash-can.png" width="20px;" height="20px;" /></td>
-
-			 		</tr>
-			 		<tr>
-			 			<td>샤넬 수블리마지 르 라움</td>
-					</tr>
-					
-					<tr>
-						<td>종류 : 립스틱</td>
-					</tr>
-					<tr>
-						<td>폐기 : 2023.03.21</td>
-					</tr>
-					
-			 		
-			 		</table>	
-			 		 		
-			     </div>
-			  
-			 
-			 
-			 
-			
-					
-			
-			</div>
-		
-		
-		</div>
-		
-
-		<div class="cli">
-
-			<div class="tomorrow" data-location-id="065362" data-language="KO"
-				data-unit-system="METRIC" data-skin="light"
-				data-widget-type="upcoming"
-				style="display:felx; width: 98vw; justify-content: center; margin: 0 auto;">
-			</div>
-		
-			
-			
-		</div>
-
-
-
-		<div class="card cara_img">
-			<div class="card-body">
-				<h5 class="fw-bold" style="font-size: 17px;'">오늘의 추천 화장품</h5>
-				<br>
-				<p class="card-text">Act+Acre</p>
-				<p class="card-text">Restorative Hair Mask</p>
-			</div>
-			<img src="assets/img/cos_skin.jpg" class="card-img-bottom" alt="...">
-		</div>
-
-
-
-
-
-
-
-
-
-	</div>
-
-
-
-
-
-
-
 
 
 
