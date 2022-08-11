@@ -1,7 +1,5 @@
-<%@page import="com.mellow.domain.UserVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +17,7 @@
 <link href="css/styles.css" rel="stylesheet" />
 
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 
 
 <script
@@ -31,14 +29,11 @@
 <script src="assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
 <script src="js/datatables-simple-demo.js"></script>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script type="text/javascript">
-<% UserVO vo =(UserVO)session.getAttribute("userInfo");%>
-</script>
+
 
 <style media="screen" id="dayspedia_widget_58044d7e23cf17ec_style">
 /*COMMON*/
@@ -96,93 +91,17 @@
 
 
 <script>
-
-$(function(){
-	$("#barcode_btn").on("click",function(){
-		var barcode = $("#barcode_id").val();
-		console.log(barcode)
-		$.ajax({
-			 url : "barcode.do",
-		       type : "get",
-		       data : {"barcode" : barcode},
-		       success : listView,
-		    	   //listView,
-		       error : 
-		    	   function(){ 
-		    	   console.log("no");
-		    	   alert("error"); }
-		
-	});
-	
-	});
-	});
-	
-function listView(data){
-	
-	console.log(data.cos_type)
-    
-	 var list = `<img class='cos_found' src='\${data.cos_file}' width='350px'
-         			height='300px' />
-	 
-	 
-	 			<form class='form-horizontal' action = 'regist.do'>
-				<div class='mb-3 row'>
-   				<label for='staticEmail' class='col-sm-2 col-form-label'>화장품종류</label>
-			    <div class='col-sm-10'>
-			    <input type='hidden' class='form-control' id='barcode' name ='barcode' value ='\${data.barcode}'>
-			    <input type='text' class='form-control' id='cos_type' name ='cos_type' value ='\${data.cos_type}'>
-			    
-			    </div>
-			    </div>
-
-    			<div class='mb-3 row'>
-			    <label for='staticEmail' class='col-sm-2 col-form-label'>화장품명</label>
-			      <div class='col-sm-10'>
-			      <input type='text' class='form-control' id='cos_name' value ='\${data.cos_name}'>
-			      <input type='hidden' class='form-control' id='user_id' name ='user_id' value ='${userInfo.user_id}'>
-			      </div>
-			   	  </div>
-			   	  <div class='mb-3 row'>
-			      <label for='staticEmail' class='col-sm-2 col-form-label'>유통기한</label>
-			      <div class='col-sm-10'>
-			      <input type='text' class='form-control' id='exp_date' name = 'exp_date'>
-			      </div>
-			      </div>
-
-    	 <div class='mb-3 row'>
-    	 <label for='staticEmail' class='col-sm-2 col-form-label'>개봉여부</label>
-         
-         
-    	 <div class='col-sm-10'>";
-    	 <select class='form-select form-select1' aria-label='Default select example' id='open_yn' name ='open_yn'>
-    	 <option disabled selected>개봉 여부</option>
-    	 <option value='N'>미개봉</option>
-    	 <option value='Y'>개봉</option>
-    	 </select>
-    	 </div>
-    	 </div>
-    	 <div class='col-12_reg'>
-    	 <button type='submit' class='btn btn-outline-primary submit_reg1'>등록</button>
-    	 <button type='submit' class='btn btn-outline-danger submit_reg2'>취소</button>
-    	 </div>
-
-    	 </form>`
-    	console.log(list)
-    	$("#view").append(list);
-    
- }
-
 <!-- 시간위젯 자바스크립트 -->
-   var s, t;
-   s = document.createElement("script");
-   s.type = "text/javascript";
-   s.src = "//cdn.dayspedia.com/js/dwidget.min.vb46adaa2.js";
-   t = document.getElementsByTagName('script')[0];
-   t.parentNode.insertBefore(s, t);
-   s.onload = function() {
-      window.dwidget = new window.DigitClock();
-      window.dwidget.init("dayspedia_widget_58044d7e23cf17ec");
-   };
+	var s, t;
+	s = document.createElement("script");
+	s.type = "text/javascript";
+	s.src = "//cdn.dayspedia.com/js/dwidget.min.vb46adaa2.js";
+	t = document.getElementsByTagName('script')[0];
+	t.parentNode.insertBefore(s, t);
+	s.onload = function() {
+		window.dwidget = new window.DigitClock();
+		window.dwidget.init("dayspedia_widget_58044d7e23cf17ec");
+	};
 </script>
 
 
@@ -380,110 +299,134 @@ function listView(data){
 			<div class="cos_bar">
 
 
-
-
+				<form class="form-inline" action="/action_page.php">
+				
 				<div class="col-sm-10_sel">
 					<div class="barcode_list">
-						<label class="col-sm-2_sel col-form-label" for="barcode">Barcode</label>
-						<input class="form-control" type="text" id="barcode_id"
-							placeholder="Please scan the barcode" name="barcode_name">
-						<button class="btn btn-outline-warning cos_sel" type="button"
-							id="barcode_btn">검색</button>
+					<label class="col-sm-2_sel col-form-label" for="barcode">Barcode</label> 
+					<input class="form-control" type="email" id="barcode_id" placeholder="Please scan the barcode" name="barcode_name">
+					<button class="btn btn-outline-warning cos_sel" type="submit">검색</button>
 					</div>
 				</div>
-
+				</form>
 
 				<!--  
-            <form class="form-horizontal_1">
-               <div class="mb-3 row">
-                  <label for="staticEmail" class="col-sm-2 col-form-label">바코드</label>
-                  <div class="col-sm-10_sel">
-                     <input type="text" class="form-control" id="staticEmail"
-                        placeholder="640509 040147">
-                      <button type="submit" class="btn btn-outline-warning cos_sel">조회</button>
-                  </div>
-               </div>
-            </form>
-            -->
+				<form class="form-horizontal_1">
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">바코드</label>
+						<div class="col-sm-10_sel">
+							<input type="text" class="form-control" id="staticEmail"
+								placeholder="640509 040147">
+						    <button type="submit" class="btn btn-outline-warning cos_sel">조회</button>
+						</div>
+					</div>
+				</form>
+				-->
 
 
 
 			</div>
 
-			<!-- 
-         <hr class="hr1">
+
+			<hr class="hr1">
 
 
 
-         <div class="cos_bar_res">
+			<div class="cos_bar_res">
 
-            <img class="cos_found" src="assets/img/found.png" width="350px"
-               height="300px" />
-
- 
-            <form class="form-horizontal">
-
-              <div class="mb-3 row">
-                  <label for="staticEmail" class="col-sm-2 col-form-label">화장품종류</label>
-                  <div class="col-sm-10">
-                     <input type="text" class="form-control" id="cos_type" name ="cos_type">
-                  </div>
-               </div>
-
-               <div class="mb-3 row">
-                  <label for="staticEmail" class="col-sm-2 col-form-label">화장품명</label>
-                  <div class="col-sm-10">
-                     <input type="text" class="form-control" id="cos_name" name="cos_name">
-                  </div>
-               </div>
-
-               <div class="mb-3 row">
-                  <label for="staticEmail" class="col-sm-2 col-form-label">유통기한</label>
-                  <div class="col-sm-10">
-                        <input type="text" class="form-control" id="exp_date" name = "cos_type">
-                  </div>
-               </div>
-
-               <div class="mb-3 row">
-                  <label for="staticEmail" class="col-sm-2 col-form-label">개봉여부</label>
-                  
-                  
-                  <div class="col-sm-10">
-                     <select class="form-select form-select1"
-                        aria-label="Default select example" id="open_yn" name ="open_yn">
-                        <option disabled selected>개봉 여부</option>
-                        <option value="N">미개봉</option>
-                        <option value="Y">개봉</option>
+				<img class="cos_found" src="assets/img/found.png" width="350px"
+					height="300px" />
 
 
-                     </select>
-                  </div>
-               </div>
+				<form class="form-horizontal">
 
-               <div class="col-12_reg">
-                  <button type="submit" class="btn btn-outline-primary submit_reg1">등록</button>
-                  <button type="submit" class="btn btn-outline-danger submit_reg2">취소</button>
-               </div>
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">화장품
+							종류</label>
+
+						<div class="col-sm-10">
+							<select class="form-select form-select1"
+								aria-label="Default select example">
+								<option disabled selected>화장품 종류 선택</option>
+								<option value="1">스킨</option>
+								<option value="2">토너</option>
+								<option value="3">로션</option>
+								<option value="4">크림</option>
+								<option value="5">에센스</option>
+								<option value="6">세럼</option>
+								<option value="7">클렌저</option>
+								<option value="8">자외선차단제</option>
+								<option value="9">메이크업 베이스</option>
+								<option value="10">파우더</option>
+								<option value="11">팩트</option>
+								<option value="12">아이쉐도우</option>
+								<option value="13">블러셔</option>
+								<option value="14">아이라이너</option>
+								<option value="15">마스카라</option>
+								<option value="16">립제품</option>
+
+
+							</select>
+						</div>
+
+					</div>
+
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">화장품명</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="staticEmail"
+								placeholder="N°1 DE CHANEL 레드 까멜리아 파운데이션">
+						</div>
+					</div>
+
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">유통기한</label>
+						<div class="col-sm-10">
+							<!-- 
+							<input type="text" class="form-control" id="staticEmail"
+								placeholder="2022.09.27">
+						     -->
+								<input type="text" class="form-control" id="datepicker">
+						</div>
+					</div>
+
+					<div class="mb-3 row">
+						<label for="staticEmail" class="col-sm-2 col-form-label">개봉여부</label>
+						
+						
+						<div class="col-sm-10">
+							<select class="form-select form-select1"
+								aria-label="Default select example">
+								<option disabled selected>개봉 여부</option>
+								<option value="1">미개봉</option>
+								<option value="2">개봉</option>
+
+
+							</select>
+						</div>
+					</div>
+
+					<div class="col-12_reg">
+						<button type="submit" class="btn btn-outline-primary submit_reg1">등록</button>
+						<button type="submit" class="btn btn-outline-danger submit_reg2">취소</button>
+					</div>
 
 
 
 
-            </form>
+				</form>
+
+			</div>
+
+
+
+
+
+
+
 
 
 		</div>
-		-->
-		 <hr class="hr1">
-		<div class="cos_bar_res" id="view"></div>
-
-
-
-
-
-
-
-
-	</div>
 	</div>
 
 
@@ -493,7 +436,7 @@ function listView(data){
 
 
 
-	<script>
+<script>
    $(function() {
        //input을 datepicker로 선언
        $("#datepicker").datepicker({
