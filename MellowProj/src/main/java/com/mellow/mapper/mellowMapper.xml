@@ -31,20 +31,20 @@
       and b.cos_type = c.cos_type
       and user_id = #{user_id}
       order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
-      discard_date END
+      discard_date END desc
    </select>
    
    <!-- 화장품 리스트 출력(미개봉) -->
    <select id="coslistClose"
       resultType="com.mellow.domain.CosmeticVO">
       select a.cos_name, b.cos_type,b.open_yn, b.open_date,
-      exp_date as discard_date
+      exp_date as discard_date, exp_date
       from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
       where a.barcode = b.barcode
       and b.cos_type = c.cos_type
       and b.open_yn ='N'
       and user_id = #{user_id}
-      order by exp_date 
+      order by exp_date desc
    </select>
    
    <!-- 화장품 리스트 출력(개봉) -->
@@ -58,7 +58,7 @@
       and b.open_yn = 'Y'
       and user_id = #{user_id}
       order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
-      discard_date END
+      discard_date END desc
    </select>
 
 

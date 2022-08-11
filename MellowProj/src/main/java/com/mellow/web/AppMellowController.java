@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mellow.domain.CosmeticVO;
@@ -26,6 +30,8 @@ public class AppMellowController {
 
 	@Autowired // self service
 	mellowMapper mapper;
+
+	private String user_id;
 	 //회원가입
 	   @RequestMapping("/join.do")
 	   public String gojoin() {
@@ -104,7 +110,7 @@ public class AppMellowController {
 	         //url = "applogin.do";
 	      } else {
 	    	  System.out.println("로그인실패");
-	         //url = "index.do";
+	         //url = "index.do";ㄱ5444
 	    	 return null;
 	      } 
 	      //System.out.println(url);
@@ -115,13 +121,19 @@ public class AppMellowController {
 	   //화장품리스트 전부가져오기
 	   @RequestMapping("/cosmeticlist.do")
 	  // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	   public @ResponseBody JSONObject list() {
-		   System.out.println("리스트전체가져오기");
-		   //Map<String, Object> map = new HashMap<String, Object>();	  
+	   public @ResponseBody JSONObject list(String user_id) {
+		  System.out.println("전체리스트 user_id :"+user_id);
+		   
+		   //Map<String, Object> map = new HashMap<String, Objecht>();	  
 		  //map.put("datas", "123");
 		   //map.put("cosmeticList", (List<CosmeticVO>)mapper.cosmeticList(vo));
 		   //map.put("cosmeticList", mapper.cosmeticList(vo));
-		   ArrayList<CosmeticVO> result =  mapper.cosmeticList();
+		   
+		   ArrayList<CosmeticVO> result =  mapper.cosmeticList(user_id);
+		   //System.out.println(result.get(1));
+		   
+		  // return null;
+		   
 		   SimpleDateFormat sdfYMDHms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		   SimpleDateFormat sdfYMD = new SimpleDateFormat("yyyy-MM-dd");
 		   JSONObject jsonMain=new JSONObject();
@@ -132,7 +144,7 @@ public class AppMellowController {
 			   
 				Date exp = sdfYMDHms.parse(vo.getExp_date());
 				Date using = sdfYMDHms.parse(vo.getDiscard_date());
-//				System.out.println("date1 :" +date + ", date2 : " +date2);
+				//System.out.println("date1 :" +date + ", date2 : " +date2);
 				if(exp.compareTo(using)<0) {
 					System.out.println("date1가 더 옛날"+ exp);
 					vo.setDiscard_date(vo.getExp_date());
@@ -142,7 +154,6 @@ public class AppMellowController {
 			  // if (vo.getExp_date())
 			   JSONObject row = new JSONObject();
 			   System.out.println(vo.getDiscard_date());
-			  // row.put("user_id", vo.getUser_id());
 			   row.put("req_seq", vo.getReq_seq());
 			   row.put("cos_name", vo.getCos_name());
 			   row.put("cos_type", vo.getCos_type());
@@ -153,8 +164,8 @@ public class AppMellowController {
 			  // row.put("exp_date", vo.getExp_date());
 			  // row.put("using_date", vo.getUsing_date());
 			  // row.put("open_date", vo.getOpen_date());
-			  // row.put("user_id", vo.getUser_id());
-			   //row.put("cos_file",vo.getCos_file());
+			   row.put("user_id", vo.getUser_id());
+			   row.put("cos_file",vo.getCos_file());
 			   
 			   arrays.add(i, row);
 			   i++;
@@ -167,15 +178,26 @@ public class AppMellowController {
 			}
 		   return jsonMain;
 	   }
+
+	   //화장품리스트 전부가져오기
+//	   @GetMapping("/cosmeticlist.do")
+//	  // @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	   public JSONObject list(@RequestParam String id) {
+//		   System.out.println("test1 : " + id);
+//		   
+////		   System.out.println(mapper.cosmeticList().toString());
+//		   return null;
+//		   
+//	   }
 	   
 	   
 	   
 	  //화장품 리스트 개봉O만 가져오기
 	   @RequestMapping("/cosmeticlistopen.do")
-	   public @ResponseBody JSONObject list1() {
-		   System.out.println("개봉여부O");
+	   public @ResponseBody JSONObject list1(String user_id) {
 
-		   ArrayList<CosmeticVO> result1 =  mapper.cosmeticlistopen();
+		   System.out.println(user_id);
+		   ArrayList<CosmeticVO> result1 =  mapper.coslistOpen(user_id);
 		   SimpleDateFormat sdfYMDHms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		   SimpleDateFormat sdfYMD = new SimpleDateFormat("yyyy-MM-dd");
 		   JSONObject jsonMain=new JSONObject();
@@ -183,7 +205,6 @@ public class AppMellowController {
 		   try {
 		   for(CosmeticVO vo : result1) {
 			   int i=0;
-			   
 				Date exp = sdfYMDHms.parse(vo.getExp_date());
 				Date using = sdfYMDHms.parse(vo.getDiscard_date());
 				if(exp.compareTo(using)<0) {
@@ -213,10 +234,9 @@ public class AppMellowController {
 	   
 		  //화장품 리스트 개봉X만 가져오기
 	   @RequestMapping("/cosmeticlistclose.do")
-	   public @ResponseBody JSONObject list2() {
-		   System.out.println("개봉여부X");
-
-		   ArrayList<CosmeticVO> result2 =  mapper.cosmeticlistclose();
+	   public @ResponseBody JSONObject list2(String user_id) {
+		  System.out.println("close user_id : " +user_id);
+		   ArrayList<CosmeticVO> result2 =  mapper.coslistClose(user_id);
 		   SimpleDateFormat sdfYMDHms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		   SimpleDateFormat sdfYMD = new SimpleDateFormat("yyyy-MM-dd");
 		   JSONObject jsonMain=new JSONObject();
@@ -227,10 +247,7 @@ public class AppMellowController {
 			   
 				Date exp = sdfYMDHms.parse(vo.getExp_date());
 				Date using = sdfYMDHms.parse(vo.getDiscard_date());
-				if(exp.compareTo(using)<0) {
-					vo.setDiscard_date(vo.getExp_date());
-				}else {
-				}
+				
 			   JSONObject row = new JSONObject();
 			   System.out.println(vo.getDiscard_date());
 			   row.put("req_seq", vo.getReq_seq());
@@ -252,26 +269,49 @@ public class AppMellowController {
 	   
 	   
 	   
-	   @RequestMapping("/cosmetic_delete.do")
-	   public @ResponseBody JSONObject cosmetic_delete(CosmeticVO vo,Model model){
-		   System.out.println(vo.getReq_seq());
-		   //System.out.println(vo.getCos_name());
+	   
 		   
-		   CosmeticVO result=mapper.cosmetic_delete(vo);
-		   System.out.println(result);
-		   JSONObject vo1=new JSONObject();
-		   vo1.put("list", result);
-		   String url="";
-		   
-		   if (result!=null) {
-			   System.out.println("delete success");
-			   return vo1;
-		   }else {
-			   System.out.println("delete fail");
-			   return null;
+		   @RequestMapping("/cosmetic_delete.do")
+		   public @ResponseBody JSONObject cosmetic_delete(String user_id,String req_seq){
+			  
+			   
+			   CosmeticVO result=mapper.btnDelete(user_id,req_seq);
+			   System.out.println(result);
+			   JSONObject vo1=new JSONObject();
+			   vo1.put("list", result);
+			   String url="";
+			   
+			   if (result!=null) {
+				   System.out.println("delete success");
+				   return vo1;
+			   }else {
+				   System.out.println("delete fail");
+				   return null;
+			   }
+			   
 		   }
-		   
-	   }
+	   
+	   
+//	   @RequestMapping("/cosmetic_delete.do")
+//	   public @ResponseBody JSONObject cosmetic_delete(CosmeticVO vo,Model model){
+//		   System.out.println(vo.getReq_seq());
+//		   //System.out.println(vo.getCos_name());
+//		   
+//		   CosmeticVO result=mapper.cosmetic_delete(vo);
+//		   System.out.println(result);
+//		   JSONObject vo1=new JSONObject();
+//		   vo1.put("list", result);
+//		   String url="";
+//		   
+//		   if (result!=null) {
+//			   System.out.println("delete success");
+//			   return vo1;
+//		   }else {
+//			   System.out.println("delete fail");
+//			   return null;
+//		   }
+//		   
+//	   }
 	   
 	   
 	   
