@@ -2,71 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mellow.mapper.mellowMapper">
     <!-- 로그인 -->
-	<select id="userLogin" parameterType="com.mellow.domain.UserVO"
-		resultType="com.mellow.domain.UserVO">
-		select * from tbl_user where user_id=#{user_id} and
-		user_pw=#{user_pw}
-	</select>
+   <select id="userLogin" parameterType="com.mellow.domain.UserVO"
+      resultType="com.mellow.domain.UserVO">
+      select * from tbl_user where user_id=#{user_id} and
+      user_pw=#{user_pw}
+   </select>
 
-	<!-- 회원가입 -->
-	<insert id="userJoin" parameterType="com.mellow.domain.UserVO">
-		insert into
-		tbl_user(user_id,user_pw,user_pnum,user_name,user_birthdate,user_gender,user_skintype,user_skintrouble)
-		values(#{user_id},#{user_pw},#{user_pnum},#{user_name},#{user_birthdate},#{user_gender},#{user_skintype},#{user_skintrouble})
-	</insert>
+   <!-- 회원가입 -->
+   <insert id="userJoin" parameterType="com.mellow.domain.UserVO">
+      insert into
+      tbl_user(user_id,user_pw,user_pnum,user_name,user_birthdate,user_gender,user_skintype,user_skintrouble)
+      values(#{user_id},#{user_pw},#{user_pnum},#{user_name},#{user_birthdate},#{user_gender},#{user_skintype},#{user_skintrouble})
+   </insert>
 
-	<select id="applogin" parameterType="com.mellow.domain.UserVO"
-		resultType="com.mellow.domain.UserVO">
-		select * from tbl_user where user_id=#{user_id} and
-		user_pw=#{user_pw}
-	</select>
+   <select id="applogin" parameterType="com.mellow.domain.UserVO"
+      resultType="com.mellow.domain.UserVO">
+      select * from tbl_user where user_id=#{user_id} and
+      user_pw=#{user_pw}
+   </select>
 
-	<!-- 화장품 리스트 출력(전체) -->
-	<select id="cosmeticList"
-		resultType="com.mellow.domain.CosmeticVO">
-		select a.cos_name, b.cos_type,b.open_yn, b.open_date,
-		ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
-		from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
-		where a.barcode = b.barcode
-		and b.cos_type = c.cos_type
-		and user_id = #{user_id}
-		order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
-		discard_date END
-	</select>
-	
-	<!-- 화장품 리스트 출력(미개봉) -->
-	<select id="coslistClose"
-		resultType="com.mellow.domain.CosmeticVO">
-		select a.cos_name, b.cos_type,b.open_yn, b.open_date,
-		exp_date as discard_date
-		from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
-		where a.barcode = b.barcode
-		and b.cos_type = c.cos_type
-		and b.open_yn ='N'
-		and user_id = #{user_id}
-		order by exp_date 
-	</select>
-	
-	<!-- 화장품 리스트 출력(개봉) -->
-	<select id="coslistOpen"
-		resultType="com.mellow.domain.CosmeticVO">
-		select b.req_seq,a.cos_name, b.cos_type,b.open_yn, b.open_date,
-		ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
-		from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
-		where a.barcode = b.barcode
-		and b.cos_type = c.cos_type
-		and b.open_yn = 'Y'
-		and user_id = #{user_id}
-		order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
-		discard_date END
-	</select>
+   <!-- 화장품 리스트 출력(전체) -->
+   <select id="cosmeticList"
+      resultType="com.mellow.domain.CosmeticVO">
+      select a.cos_name, b.cos_type,b.open_yn, b.open_date,
+      ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
+      from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
+      where a.barcode = b.barcode
+      and b.cos_type = c.cos_type
+      and user_id = #{user_id}
+      order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
+      discard_date END
+   </select>
+   
+   <!-- 화장품 리스트 출력(미개봉) -->
+   <select id="coslistClose"
+      resultType="com.mellow.domain.CosmeticVO">
+      select a.cos_name, b.cos_type,b.open_yn, b.open_date,
+      exp_date as discard_date
+      from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
+      where a.barcode = b.barcode
+      and b.cos_type = c.cos_type
+      and b.open_yn ='N'
+      and user_id = #{user_id}
+      order by exp_date 
+   </select>
+   
+   <!-- 화장품 리스트 출력(개봉) -->
+   <select id="coslistOpen"
+      resultType="com.mellow.domain.CosmeticVO">
+      select b.req_seq,a.cos_name, b.cos_type,b.open_yn, b.open_date,
+      ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
+      from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
+      where a.barcode = b.barcode
+      and b.cos_type = c.cos_type
+      and b.open_yn = 'Y'
+      and user_id = #{user_id}
+      order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
+      discard_date END
+   </select>
 
 
 
-	<!-- 바코드 인식으로 상품명 출력 -->
-	<select id="barcodeRead" parameterType="String" resultType="com.mellow.domain.cosmeticinfoVO">
-		select * from tbl_cosmetic_info where barcode = #{barcode}
-	</select>
+   <!-- 바코드 인식으로 상품명 출력 -->
+   <select id="barcodeRead" parameterType="String" resultType="com.mellow.domain.cosmeticinfoVO">
+      select * from tbl_cosmetic_info where barcode = #{barcode}
+   </select>
 
 	<!-- 화장품 등록 -->
 	<insert id="registCos" parameterType="com.mellow.domain.CosmeticVO">
@@ -94,4 +94,5 @@
 		from
 		tbl_cosmetic_info where cos_name = #{cos_name};
 	</select>
+
 </mapper>
