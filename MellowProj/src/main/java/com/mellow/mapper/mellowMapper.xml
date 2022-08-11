@@ -73,7 +73,7 @@
 		insert into
 		tbl_user_cosmetic(req_seq,barcode,cos_type,exp_date,open_yn,open_date,user_id)
 		values(
-		req_seq.nexval,#{barcode},#{cos_type},#{exp_date},#{open_yn},#{open_date},#{user_id}
+		req_seq.nextval,#{barcode},#{cos_type},#{exp_date},#{open_yn},#{open_date},#{user_id}
 		)
 	</insert>
 	
