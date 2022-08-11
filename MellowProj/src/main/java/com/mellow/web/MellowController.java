@@ -56,9 +56,10 @@ public class MellowController {
 
 		if (result != null) {
 			System.out.println("login success!");
-
+			System.out.println(vo);
+			String userId = vo.getUser_id();
 			session.setAttribute("userInfo", vo);
-			return "../../index";
+			return "../../cos_register";
 		} else {
 			System.out.println("login error!");
 			return "../../login";
@@ -94,12 +95,7 @@ public class MellowController {
 	@RequestMapping("/regist.do")
 	public String registCos(CosmeticVO vo) {
 
-		System.out.println("등록정보입력");
-		System.out.println(vo.getBarcode());
-		System.out.println(vo.getCos_type());
-		System.out.println(vo.getExp_date());
-		System.out.println(vo.getOpen_yn());
-		System.out.println(vo.getUser_id());
+		
 
 		if (vo.getOpen_yn().equals("Y")) {
 			String current = sdfYMD.format(System.currentTimeMillis());
@@ -108,6 +104,14 @@ public class MellowController {
 		} else {
 			vo.setOpen_date(vo.getExp_date());
 		}
+		
+		System.out.println("등록정보입력");
+		System.out.println(vo.getBarcode());
+		System.out.println(vo.getCos_type());
+		System.out.println(vo.getExp_date());
+		System.out.println(vo.getOpen_yn());
+		System.out.println(vo.getOpen_date());
+		System.out.println(vo.getUser_id());
 		int row = mapper.registCos(vo);
 
 		if (row > 0) {

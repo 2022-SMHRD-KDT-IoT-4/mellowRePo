@@ -27,7 +27,10 @@ import com.mellow.mapper.mellowMapper;
 @Controller
 public class WebRestController {
 
-	public static String btnOp = "";
+	public static String btnOp = "1";
+	public static String temp = "";
+	public static int cnt = 0;
+	public static float sum = 0;
 
 	@Autowired // self service
 	mellowMapper mapper;
@@ -35,13 +38,13 @@ public class WebRestController {
 	// 바코드에 맞는 화장품명 출력 (ajax)
 	@RequestMapping(value = "/barcode.do", produces = "application/json; charset=utf8")
 	public @ResponseBody cosmeticinfoVO module(String barcode, Model model) {
-
+		System.out.println(barcode);
 		cosmeticinfoVO vo = mapper.barcodeRead(barcode);
 		model.addAttribute("bar_cos", vo);
 		System.out.println("불러온 화장품명" + vo.getCos_name());
 
 		return vo;
-	}
+	} 
 
 	@RequestMapping(value = "/coslistAll.do", produces = "application/json; charset=utf8")
 	public @ResponseBody ArrayList<CosmeticVO> cosmeticAll(String user_id) {
@@ -101,21 +104,28 @@ public class WebRestController {
 
 	// 냉장고 온도조절, LED ON/OFF 제어
 	@RequestMapping("/sensor.do")
-	public @ResponseBody JSONObject tempOption(String temp) {
-		System.out.println(temp);
+	public @ResponseBody JSONObject tempOption(String data) {
+		System.out.println("보낼온도값 : " +temp);
 		System.out.println(btnOp);
 		JSONObject obj = new JSONObject();
-		obj.put("btn", "1");
-		obj.put("temp", "22");
+		obj.put("btn", btnOp);
+		obj.put("temp", temp);
 		//return btnOp;
 		return obj;
 
 	}
 	
 	@RequestMapping("/tmpsensor.do")
-	public @ResponseBody String tempOption1(String data) {
-		System.out.println(data);
-		return "0";
+	public @ResponseBody void tempOption1(String data) {
+		System.out.println("받은 데이터 " +data);
+		sum= sum + Float.parseFloat(data);
+		cnt++;
+		if(cnt==5) {
+			temp = Float.toString(sum/cnt);
+			cnt=0;
+			sum=0;
+		}
+		
 
 	}
 

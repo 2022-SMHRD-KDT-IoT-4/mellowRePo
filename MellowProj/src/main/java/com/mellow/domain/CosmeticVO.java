@@ -9,7 +9,7 @@ import lombok.Data;
 @NoArgsConstructor
 public class CosmeticVO {
 	
-	private String reg_seq;
+	private String req_seq;
 	private String barcode;
 	private String cos_name;
 	private String cos_type;
@@ -20,5 +20,4 @@ public class CosmeticVO {
 	private String discard_date;
 	private String user_id;
 	private String cos_file;
-
 }
