@@ -25,13 +25,13 @@
    <select id="cosmeticList"
       resultType="com.mellow.domain.CosmeticVO">
       select a.cos_name, b.cos_type,b.open_yn, b.open_date,
-      ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
+      ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date, a.cos_file
       from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
       where a.barcode = b.barcode
       and b.cos_type = c.cos_type
       and user_id = #{user_id}
       order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
-      discard_date END desc
+      discard_date END
    </select>
    
    <!-- 화장품 리스트 출력(미개봉) -->
@@ -44,7 +44,7 @@
       and b.cos_type = c.cos_type
       and b.open_yn ='N'
       and user_id = #{user_id}
-      order by exp_date desc
+      order by exp_date
    </select>
    
    <!-- 화장품 리스트 출력(개봉) -->
@@ -58,7 +58,7 @@
       and b.open_yn = 'Y'
       and user_id = #{user_id}
       order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
-      discard_date END desc
+      discard_date END
    </select>
 
 
@@ -92,7 +92,14 @@
 		select cos_name, cos_type,
 		brand_name, cos_dosage, cos_effect, cos_spf, cos_pa
 		from
-		tbl_cosmetic_info where cos_name = #{cos_name};
+		tbl_cosmetic_info where cos_name = #{cos_name}
 	</select>
+	
+	<!-- 화장품 API따온 값 넣기 -->
+	<update id="cosInfoUpdate" parameterType="com.mellow.domain.cosmeticinfoVO">
+	    update tbl_cosmetic_info set brand_name=#{brand_name}, cos_dosage = #{cos_dosage}, cos_effect = #{cos_effect},
+	    cos_spf = #{cos_spf},cos_pa = #{cos_pa}
+	    where cos_name =#{cos_name}
+	</update>
 
 </mapper>

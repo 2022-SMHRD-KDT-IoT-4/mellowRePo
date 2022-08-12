@@ -48,6 +48,7 @@ public class WebRestController {
 
 	@RequestMapping(value = "/coslistAll.do", produces = "application/json; charset=utf8")
 	public @ResponseBody ArrayList<CosmeticVO> cosmeticAll(String user_id) {
+		System.out.println("?");
 		ArrayList<CosmeticVO> result = mapper.cosmeticList(user_id);
 		SimpleDateFormat sdfYMDHms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		try {
@@ -55,7 +56,7 @@ public class WebRestController {
 			for (int i = 0; i < result.size(); i++) {
 
 				Date exp = sdfYMDHms.parse(result.get(i).getExp_date());
-				Date using = sdfYMDHms.parse(result.get(i).getExp_date());
+				Date using = sdfYMDHms.parse(result.get(i).getDiscard_date());
 				if(exp.compareTo(using)<0) {
 					System.out.println("date1가 더 옛날"+ exp);
 					result.get(i).setDiscard_date(result.get(i).getExp_date());
@@ -67,6 +68,7 @@ public class WebRestController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(result);
 		return result;
 	}
 	
@@ -80,13 +82,14 @@ public class WebRestController {
 			for (int i = 0; i < result.size(); i++) {
 
 				Date exp = sdfYMDHms.parse(result.get(i).getExp_date());
-				Date using = sdfYMDHms.parse(result.get(i).getExp_date());
+				Date using = sdfYMDHms.parse(result.get(i).getDiscard_date());
 				if(exp.compareTo(using)<0) {
 					System.out.println("date1가 더 옛날"+ exp);
 					result.get(i).setDiscard_date(result.get(i).getExp_date());
 				}else {
 					System.out.println("date2가 더 옛날" + using);
 				}
+			System.out.println("순서대로 : " +result.get(i).getDiscard_date());
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -131,6 +134,7 @@ public class WebRestController {
 
 	@RequestMapping("/btn.do")
 	public @ResponseBody void tempBtn(String btnoption) {
+		System.out.println(btnoption);
 		btnOp = btnoption;
 
 	}

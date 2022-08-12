@@ -59,7 +59,7 @@ public class MellowController {
 			System.out.println(vo);
 			String userId = vo.getUser_id();
 			session.setAttribute("userInfo", vo);
-			return "../../cos_register";
+			return "../../index";
 		} else {
 			System.out.println("login error!");
 			return "../../login";
@@ -68,34 +68,32 @@ public class MellowController {
 
 	// 화장품 api담아오기
 	@RequestMapping("/cosmetic.do")
-	public void cosmeticInfo() {
+	public String cosmeticInfo(HttpSession session,String cos_name) {
+		UserVO user = (UserVO) session.getAttribute("userInfo");
+
 		moduleDAO dao = new moduleDAO();
-		ArrayList<cosmeticinfoVO> ar = dao.cosmeticInfo();
-		cosmeticinfoVO vo = new cosmeticinfoVO();
-		if (!ar.isEmpty()) {
+		cosmeticinfoVO vo = dao.cosmeticInfo(cos_name);
+		System.out.println(user.getUser_id());
+		vo.setUser_id(user.getUser_id());
+		System.out.println(vo);
+		if (vo.getCos_name() != null) {
 			System.out.println("ar값 불러옴");
-			System.out.println(ar);
-			// insert mapper
-//			String barcode = ar.get(0).getBarcode();
-//			String barcode = ar.get(0).getBarcode();
-//			String barcode = ar.get(0).getBarcode();
-//			String barcode = ar.get(0).getBarcode();
-//			String barcode = ar.get(0).getBarcode();
-//			String barcode = ar.get(0).getBarcode();
-			if(ar.get(0).getBarcode()!=null) {
-				vo.setBarcode(ar.get(0).getBarcode());
+			int row = mapper.cosInfoUpdate(vo);
+			if(row>0) {
+				System.out.println("화장품 상세정보 업데이트 성공");
+			}else {
+				System.out.println("화장품 상세정보 업데이트 실패");
 			}
-			System.out.println();
-			
+		}else {
+			System.out.println("화장품 상세정보 없음");
 		}
 
+		return "../../index";
 	}
 
 	// 바코드 인식 후 내용 넣고 등록
 	@RequestMapping("/regist.do")
 	public String registCos(CosmeticVO vo) {
-
-		
 
 		if (vo.getOpen_yn().equals("Y")) {
 			String current = sdfYMD.format(System.currentTimeMillis());
@@ -104,8 +102,9 @@ public class MellowController {
 		} else {
 			vo.setOpen_date(vo.getExp_date());
 		}
-		
+
 		System.out.println("등록정보입력");
+		System.out.println(vo.getCos_name());
 		System.out.println(vo.getBarcode());
 		System.out.println(vo.getCos_type());
 		System.out.println(vo.getExp_date());
@@ -120,9 +119,7 @@ public class MellowController {
 		} else {
 			System.out.println("등록실패");
 		}
-		return "../../cos_retrieve";
+		return "redirect:/cosmetic.do?cos_name="+vo.getCos_name();
 	}
-
-	
 
 }

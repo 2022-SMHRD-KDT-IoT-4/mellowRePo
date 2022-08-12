@@ -1,12 +1,17 @@
 package com.mellow.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserVO {
-	
+	@NonNull
 	private String user_id;
 	private String user_pw;
 	private String user_pnum;
@@ -17,5 +22,6 @@ public class UserVO {
 	private String user_skintrouble;
 	private String user_joindate;
 	private String user_type;
+	
 
 }
