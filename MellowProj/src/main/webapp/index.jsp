@@ -56,9 +56,12 @@
 </script>
 <!--여기부터 넣어주삼 -->
 <script>
-$(function(){
-	
-	   $("#cosAll_btn").on("click",function(){
+$(document).ready(function(){
+	cosAllView();
+ });
+
+function cosAllView(){
+
 		   var user_id = $("#user_id").val();
 		   console.log(user_id)
 	      $.ajax({
@@ -66,6 +69,7 @@ $(function(){
 	             type : "get",
 	             data : {"user_id" : user_id },
 	             success : function(res){
+	            	 
 	            	 cosAll(res)
 	             },
 	             error : 
@@ -74,12 +78,9 @@ $(function(){
 	                alert("error"); }
 	   });
 	   
-	   });
-	   });
+}
 	   
-$(function(){
-	
-	   $("#cosClose_btn").on("click",function(){
+function cosCloseView(){
 		   var user_id = $("#user_id").val();
 		   console.log(user_id)
 	      $.ajax({
@@ -95,12 +96,9 @@ $(function(){
 	                alert("error"); }
 	   });
 	   
-	   });
-	   });
+}
 	   
-$(function(){
-	
-	   $("#cosOpen_btn").on("click",function(){
+function cosOpenView(){
 		   var user_id = $("#user_id").val();
 		   console.log(user_id)
 	      $.ajax({
@@ -116,8 +114,7 @@ $(function(){
 	                alert("error"); }
 	   });
 	   
-	   });
-	   });
+}
 	   
 function cosAll(data){
 	$("#cosView").html("");
@@ -127,21 +124,24 @@ function cosAll(data){
 		    var list =`<div class="cos_item">
 	          
        <table class="cos_table">
-        <tr>
-        <td><img class="cos_img" src="\${obj.cos_file}" width="200px;" height="150px;" /></td>             
-        <td><img class="trash_img" src="assets/img/trash-can.png" width="20px;" height="20px;" /></td>
-
+        <tr id ="cosImg">
+        <td><img class="cos_img" src="\${obj.cos_file}" width="200px;" height="150px;" onclick ="cosInfo(\${index},'\${obj.cos_name}')"/></td>             
+        <td><img class="trash_img" src="assets/img/trash-can.png" width="20px;" height="20px;" onclick="cosDelAll(\${obj.req_seq},\${obj.listType})"/></td>
+        
         </tr>
         <tr>
-           <td>\${obj.cos_name}</td>
-        </tr>
-       
-        <tr>
-           <td>종류 : \${obj.cos_type}</td>
+           <td id="cosInfo_a\${index}">\${obj.cos_name}</td>
         </tr>
         <tr>
-           <td>폐기 : \${obj.discard_date} </td>
+           <td id = "cosInfo_b\${index}">종류 : \${obj.cos_type}</td>
         </tr>
+        <tr>
+           <td id="cosInfo_c\${index}">폐기 : \${obj.discard_date} </td>
+        </tr>
+        
+        
+    	
+        
        
         
        </table>   
@@ -153,6 +153,90 @@ function cosAll(data){
 	   
 	    
 	 }
+
+
+function cosDelAll(req_seq,listType){
+	 var user_id = $("#user_id").val();
+	   console.log(user_id);
+	   console.log(req_seq);
+	   console.log(listType);
+	   
+   $.ajax({
+       url : "cosDelete.do",
+          type : "get",
+          data : {"user_id" : user_id,
+       	       "req_seq" : req_seq},
+          success : function(){
+        		  
+        	  if(listType=='2'){
+        		  console.log("미개봉")
+        		  cosCloseView()
+        	  }else if(listType=='3'){
+        		  console.log("개봉")
+        		  cosOpenView()
+        	  }else{
+        		  console.log("전체")
+        		  cosAllView()
+        	  }
+        	  
+          },
+          error : 
+             function(){ 
+             console.log("no");
+             alert("error"); }
+});
+	
+}
+
+var cnt =0;
+var rest_a=""
+var rest_b=""
+var rest_c ="";
+function cosInfo(index,cos_name){
+	   console.log(cos_name);
+	 	console.log(index);
+	   
+  $.ajax({
+      url : "cosInfo.do",
+         type : "get",
+         data : {"cos_name" : cos_name},
+         success : function(data){
+       		  
+       	  console.log(data)
+  		if(cnt==0){
+  			console.log(cnt)
+  			rest_a = $("#cosInfo_a"+index).html();
+  			rest_b = $("#cosInfo_b"+index).html();
+  			rest_c = $("#cosInfo_c"+index).html();
+  			document.getElementById("cosInfo_a"+index).innerHTML = "브랜드명 : "+data.brand_name;
+  			document.getElementById("cosInfo_b"+index).innerHTML = "사용법 : "+data.cos_dosage;
+  			document.getElementById("cosInfo_c"+index).innerHTML = "효능 : "+data.cos_effect;
+  			cnt=1;
+  		}else{
+  			console.log(cnt);
+  			document.getElementById("cosInfo_a"+index).innerHTML = rest_a;
+  			document.getElementById("cosInfo_b"+index).innerHTML = rest_b;
+  			document.getElementById("cosInfo_c"+index).innerHTML = rest_c;
+  			cnt=0
+  		}
+       
+         },
+         error : 
+            function(){ 
+            console.log("no");
+            alert("error"); }
+});
+	
+}
+
+var bDisplay = true; function doDisplay(){ 	
+    var con = document.getElementById("myDIV"); 	
+    if(con.style.display=='none'){ 		
+        con.style.display = 'block'; 	
+    }else{ 		
+        con.style.display = 'none'; 	
+    } 
+} 
 </script>
 <!--여기까지 넣어주삼 -->
 <style media="screen" id="dayspedia_widget_58044d7e23cf17ec_style">
@@ -258,7 +342,6 @@ function cosAll(data){
 
 
 
-
          <!--/DPDC-->
       </div>
       <!--Dayspedia.com widget ENDS-->
@@ -305,14 +388,15 @@ function cosAll(data){
    <div class="cos_btn_div">
          
          <div class="cos_btns">
-            <input type="button" id ="cosAll_btn" class="btn btn-outline-success btn-rounded" data-mdb-ripple-color="dark" value="전체">
-            <input type="button" id ="cosClose_btn" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" value="미개봉">
-            <input type="button" id ="cosOpen_btn" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-color="dark" value="개봉">
+            <input type="button" onclick="cosAllView()" id ="cosAll_btn" class="btn btn-outline-success btn-rounded" data-mdb-ripple-color="dark" value="전체">
+            <input type="button" onclick="cosCloseView()" id ="cosClose_btn" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark" value="미개봉">
+            <input type="button" onclick="cosOpenView()" id ="cosOpen_btn" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-color="dark" value="개봉">
          </div>
             
          <div class="cos_reg_btn">
              <input type="button" onclick="location.href='cos_register2.jsp'" class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" value="등록">
          </div>
+         
          
    </div>
   <!--여기까지 넣어주삼 -->       
@@ -321,7 +405,7 @@ function cosAll(data){
          
          <div class="cos_reg_div" id="cosView">
          
-         </div>
+      
 <!--여기까지넣어주삼 -->      
       
       </div>

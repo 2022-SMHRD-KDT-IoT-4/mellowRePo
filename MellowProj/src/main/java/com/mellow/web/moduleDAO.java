@@ -167,5 +167,61 @@ public class moduleDAO {
 		return vo;
 
 	}
+	
+	public String sunAPI() {
+
+		try {
+			StringBuilder urlBuilder = new StringBuilder(
+					"http://apis.data.go.kr/1360000/LivingWthrIdxServiceV2/getUVIdxV2"); /* URL */
+
+			urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=eisE4f27WDQbN5JeRH1D4Tg7GKArWogUFp34pdQDmftqYB3C7IdPC2ksOPypr73uCa5CyD%2FRvoshQV2qoUpheA%3D%3D");
+
+			urlBuilder.append(
+					"&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /* 페이지번호 */
+			urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
+					+ URLEncoder.encode("10", "UTF-8")); /* 한 페이지 결과 수 Default: 10 */
+			urlBuilder.append("&" + URLEncoder.encode("dataType", "UTF-8") + "="
+					+ URLEncoder.encode("JSON", "UTF-8")); /* 요청자료형식(XML/JSON) Default: XML */
+			urlBuilder.append("&" + URLEncoder.encode("areaNo", "UTF-8") + "="
+					+ URLEncoder.encode("2900000000", "UTF-8")); /* 서울지점 공백일때: 전체지점조회 */
+			urlBuilder.append("&" + URLEncoder.encode("time", "UTF-8") + "="
+					+ URLEncoder.encode("2022081400", "UTF-8")); /* 21년7월6일 18시 발표 */
+			URL url = new URL(urlBuilder.toString());
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Content-type", "application/json");
+			System.out.println("Response code: " + conn.getResponseCode());
+			BufferedReader rd;
+			if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+				rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			} else {
+				rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+			}
+			StringBuilder sb = new StringBuilder();
+			String line;
+			while ((line = rd.readLine()) != null) {
+				sb.append(line);
+			}
+			rd.close();
+			conn.disconnect();
+			System.out.println(sb.toString());
+			JSONParser parser = new JSONParser();
+			JSONObject obj = (JSONObject) parser.parse(sb.toString());
+			JSONObject response = (JSONObject) obj.get("response");
+			JSONObject body = (JSONObject) response.get("body");
+			JSONObject items = (JSONObject) body.get("items");
+			JSONArray parse_listArr = (JSONArray) items.get("item");
+			JSONObject item = (JSONObject) parse_listArr.get(0);
+			String today = (String) item.get("today");
+			//JSONObject item = (JSONObject) items.get("item");
+			//String tomo = (String)item.get("tomorrow");
+			System.out.println(today);
+		} catch (IOException | ParseException e) {
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+
 
 }
