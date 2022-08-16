@@ -121,5 +121,33 @@ public class MellowController {
 		}
 		return "redirect:/cosmetic.do?cos_name="+vo.getCos_name();
 	}
+	
+	@RequestMapping("/cosDelete.do")
+	public @ResponseBody void cosDelete(String user_id, String req_seq) {
+		System.out.println("삭제할 상품의 사용자 : " + user_id);
+		System.out.println("삭제할 상품의 일련번호 : " + req_seq);
+		
+		CosmeticVO vo = new CosmeticVO();
+		vo.setUser_id(user_id);
+		vo.setReq_seq(req_seq);
+		int row = mapper.btnDelete(vo);
+		
+		if(row>0) {
+			System.out.println("삭제 성공");
+		}else {
+			System.out.println("삭제 실패");
+		}
+		
+		
+	}
+	
+	@RequestMapping("/cosInfo.do")
+	public @ResponseBody cosmeticinfoVO cosInfo(String cos_name) {
+		System.out.println("화장품 상세정보 조회");
+		
+		cosmeticinfoVO vo = mapper.cosInfo(cos_name);
+		System.out.println(vo);
+		return vo;
+	}
 
 }
