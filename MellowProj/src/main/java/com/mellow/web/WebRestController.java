@@ -35,6 +35,8 @@ public class WebRestController {
 	@Autowired // self service
 	mellowMapper mapper;
 
+	SimpleDateFormat sdfYMD = new SimpleDateFormat("yyyy-MM-dd");
+
 	// 바코드에 맞는 화장품명 출력 (ajax)
 	@RequestMapping(value = "/barcode.do", produces = "application/json; charset=utf8")
 	public @ResponseBody cosmeticinfoVO module(String barcode, Model model) {
@@ -44,49 +46,60 @@ public class WebRestController {
 		System.out.println("불러온 화장품명" + vo.getCos_name());
 
 		return vo;
-	} 
+	}
 
 	@RequestMapping(value = "/coslistAll.do", produces = "application/json; charset=utf8")
 	public @ResponseBody ArrayList<CosmeticVO> cosmeticAll(String user_id) {
+		String a = "";
+		System.out.println("전체리스트 조회");
 		ArrayList<CosmeticVO> result = mapper.cosmeticList(user_id);
-		SimpleDateFormat sdfYMDHms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
 		try {
 			System.out.println(result.get(0).getExp_date());
 			for (int i = 0; i < result.size(); i++) {
 
-				Date exp = sdfYMDHms.parse(result.get(i).getExp_date());
-				Date using = sdfYMDHms.parse(result.get(i).getExp_date());
-				if(exp.compareTo(using)<0) {
-					System.out.println("date1가 더 옛날"+ exp);
-					result.get(i).setDiscard_date(result.get(i).getExp_date());
-				}else {
-					System.out.println("date2가 더 옛날" + using);
+				Date exp = sdfYMD.parse(result.get(i).getExp_date());
+				Date using = sdfYMD.parse(result.get(i).getDiscard_date());
+				if (exp.compareTo(using) < 0) {
+					// System.out.println("date1가 더 옛날"+ exp);
+
+					result.get(i).setDiscard_date(sdfYMD.format(exp));
+				} else {
+					// System.out.println("date2가 더 옛날" + using);
+					result.get(i).setDiscard_date(sdfYMD.format(using));
 				}
+				
+				result.get(i).setListType("1");
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		System.out.println(result);
 		return result;
 	}
-	
+
 	// 개봉 리스트
 	@RequestMapping(value = "/coslistOpen.do", produces = "application/json; charset=utf8")
 	public @ResponseBody ArrayList<CosmeticVO> cosmeticOpen(String user_id) {
 		ArrayList<CosmeticVO> result = mapper.coslistOpen(user_id);
-		SimpleDateFormat sdfYMDHms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		System.out.println();
+		System.out.println();
 		try {
 			System.out.println(result.get(0).getExp_date());
 			for (int i = 0; i < result.size(); i++) {
 
-				Date exp = sdfYMDHms.parse(result.get(i).getExp_date());
-				Date using = sdfYMDHms.parse(result.get(i).getExp_date());
-				if(exp.compareTo(using)<0) {
-					System.out.println("date1가 더 옛날"+ exp);
-					result.get(i).setDiscard_date(result.get(i).getExp_date());
-				}else {
-					System.out.println("date2가 더 옛날" + using);
+				Date exp = sdfYMD.parse(result.get(i).getExp_date());
+				Date using = sdfYMD.parse(result.get(i).getDiscard_date());
+				if (exp.compareTo(using) < 0) {
+					// System.out.println("date1가 더 옛날"+ exp);
+					result.get(i).setDiscard_date(sdfYMD.format(exp));
+				} else {
+					result.get(i).setDiscard_date(sdfYMD.format(using));
 				}
+				// System.out.println("순서대로 : " +result.get(i).getDiscard_date());
+				result.get(i).setListType("3");
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -94,43 +107,53 @@ public class WebRestController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/coslistClose.do", produces = "application/json; charset=utf8")
 	public @ResponseBody ArrayList<CosmeticVO> cosmeticClose(String user_id) {
 		ArrayList<CosmeticVO> result = mapper.coslistClose(user_id);
-		
+		for (int i = 0; i < result.size(); i++) {
+			result.get(i).setDiscard_date(result.get(i).getDiscard_date());
+			result.get(i).setListType("2");
+		}
 		return result;
+	}
+	
+	@RequestMapping("/sunInfo.do")
+	public void sunInfo() {
+		moduleDAO dao = new moduleDAO();
+		dao.sunAPI();
+		
 	}
 
 	// 냉장고 온도조절, LED ON/OFF 제어
 	@RequestMapping("/sensor.do")
 	public @ResponseBody JSONObject tempOption(String data) {
-		System.out.println("보낼온도값 : " +temp);
+		System.out.println("보낼온도값 : " + temp);
 		System.out.println(btnOp);
 		JSONObject obj = new JSONObject();
 		obj.put("btn", btnOp);
 		obj.put("temp", temp);
-		//return btnOp;
+		// return btnOp;
 		return obj;
 
 	}
-	
+
 	@RequestMapping("/tmpsensor.do")
 	public @ResponseBody void tempOption1(String data) {
-		System.out.println("받은 데이터 " +data);
-		sum= sum + Float.parseFloat(data);
+		System.out.println("받은 데이터 " + data);
+		sum = sum + Float.parseFloat(data);
 		cnt++;
-		if(cnt==5) {
-			temp = Float.toString(sum/cnt);
-			cnt=0;
-			sum=0;
+		if (cnt == 5) {
+			temp = Float.toString(sum / cnt);
+			cnt = 0;
+			sum = 0;
 		}
-		
 
 	}
 
 	@RequestMapping("/btn.do")
 	public @ResponseBody void tempBtn(String btnoption) {
+		System.out.println(btnoption);
 		btnOp = btnoption;
 
 	}

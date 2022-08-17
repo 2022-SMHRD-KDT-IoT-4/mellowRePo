@@ -16,6 +16,7 @@
 				<h2>melloW</h2>
 				<h1>W</h1>
 				<h2>Warehouse</h2>
+<!--여기부터 넣어주삼 -->
 				<form action="login.do" method="post">
 					<div class="int-area">
 							<input type="text" name="user_id" id="id"
@@ -32,7 +33,7 @@
 						 <button id="btn" type="submit">LOGIN</button>
 					</div>
 				</form>
-				
+	<!--여기까지 넣어주삼 -->			
 				<div class="caption">
 						<a href="">Forgot Password?</a>
 				</div>

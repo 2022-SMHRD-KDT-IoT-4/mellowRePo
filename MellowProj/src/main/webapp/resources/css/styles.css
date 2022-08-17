@@ -764,7 +764,9 @@ progress {
 
 .col-5 {
   flex: 0 0 auto;
-  width: 41.66666667%;
+  width: 41.66666667
+
+;
 }
 
 .col-6 {
@@ -2801,6 +2803,7 @@ textarea.form-control-lg {
   background-color: #e9ecef;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+  
 }
 
 .input-group-lg > .form-control, .input-group-lg > .dataTable-input,
@@ -3189,7 +3192,7 @@ textarea.form-control-lg {
 }
 
 .btn-warning {
-  color: #000;
+  color: #fff;
   background-color: #ffc107;
   border-color: #ffc107;
 }
@@ -3975,6 +3978,7 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: wrap;
   padding-left: 0;
+  padding-top: 10%;
   margin-bottom: 0;
   list-style: none;
 }
@@ -4099,7 +4103,7 @@ textarea.form-control-lg {
 .navbar-nav {
   display: flex;
   flex-direction: column;
-  padding-left: 0;
+  padding-left: 23.5%;
   margin-bottom: 0;
   list-style: none;
 }
@@ -11741,10 +11745,10 @@ textarea.form-control-lg {
 
 
 
-.cos_sub h1 {
+.cos_sub{
   position: absolute;
-  left: 300px;
-  top: 150px;
+  left: 1%;
+  top: 4%;
 }
 .cos_sub_reg h1{
   position: absolute;
@@ -11767,33 +11771,41 @@ textarea.form-control-lg {
 
 .cos_reg_div{
 	position: absolute;
-	top: 150px;
-	left: 1500px;
-	
+	width:98%;
+	height:86%;
+	top: 12%;
+	left: 1%;
+	/*border: 1px dotted lightsalmon;*/
+	display:inline-block;
+	-ms-overflow-style: none;
+	overflow-y: scroll;
 }
+.cos_reg_div::-webkit-scrollbar{
+  display:none;
+}
+
 .cos_reg_div img{
 	margin-right: 10px;
 }
 
 .cos_list{
-	width: 1300px;
-	height: 100%;
-	top: 250px;
-	left: 340px;
-	border: 5px dotted lightsalmon;
+	position:absolute;
+	width: 79%;
+	height: 57%;
+	top: 13%;
+	left: 1%;
+	/*border: 1px dotted lightsalmon;*/
 	display:inline-block;
-	position: relative;
 	overflow: scroll;
-
 }
 
 .cos_item{
 	float: left;
-	padding: 20px;
-	margin-left: 130px;
-	margin-top: 80px;
-	margin-bottom: 40px;
-	border: 3px dotted black;
+	padding: 1%;
+	margin-left: 2.9%;
+	margin-top: 2.9%;
+	margin-bottom: 2%;
+	/*border: 1px dotted black;*/
 	
 }
 .cos_table td{
@@ -11921,19 +11933,158 @@ textarea.form-control-lg {
 	margin-left: 10px;
 	width: 80px;
 }
-.fri_div{
-	padding-bottom: 50px;
-}
 .fri{
 	position: absolute;
-	left: 450px;
-	top: 350px;
+	left: 410px;
+	top: 360px;
 }
 .fri_div h1{
   position: absolute;
   left: 350px;
   top: 130px;
 }
+.fri_tem{
+	position: absolute;
+	left: 530px;
+	top:290px;
+}
+
+.fri_tem span{
+	font-family: sans-serif;
+	font-size: 25px;
+}
+
+
+#slider_1{
+	width: 55vh;
+	position: absolute;
+	top:65%;
+	left: 54%;
+	transform: translate(-30%, 100%) rotate(-90deg);
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	padding: 0 15px;
+	color:#ffffff;
+}
+#slider_btn{
+	position: absolute;
+    width: 300px;
+    height: 500px;
+    display: flex;
+    top: 14%;
+    left: 63%;
+    transform: translate(50%, 50%);
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+	
+}
+#slider_btn input{
+	width:200px;
+	height:100px;
+	margin-bottom: 50px;
+	color:black;
+	font-weight: bold;
+}
+
+input[type="range"]{
+	width: 85%;
+	-webkit-appearnce:none;
+	height: 5px;
+	position: relative;
+	background-color: rgba(255,255,255,0.4);
+	border-radius: 5px;
+	outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+	-webkit-appearnce:none;
+	background-color: #ffd901;
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+}
+
+#number{
+	background-color: #00bfff;
+	height: 40px;
+	width: 70px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Poppins',sans-serif;
+	font-weight: 600;
+	font-size: 20px;
+	border-radius: 3px;
+	transform: rotate(90deg);
+	letter-spacing:1.2px;
+}
+
+#number:before{
+	position: absolute;
+	content: "";
+	height: 0;
+	width: 0;
+	border-bottom: 10px solid red;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	top: -9px;
+	
+}
+
+.fa-list{
+	margin-right: 0.5rem;
+}
+
+.fa-barcode{
+  margin-right: 0.5rem;
+}
+.cli{
+	position:absolute;
+	top:70%;
+	
+}
+.menu_text{
+	padding-top:10px;
+	padding-right:10px;
+	font-size: 17px;
+}
+
+.cara_img{
+	width:18%;
+	position:absolute;
+	left:81%;
+	top: 12%;
+	height: 30%;
+}
+
+
+
+.cos_btn_div{
+  position: relative;
+  width:100%;
+  display:flex;
+  left: 23%;
+  top: 2%;
+  /*border: 1px dotted black;*/
+  flex-direction:row;
+
+	
+}
+.cos_btns{
+	width: 50%;
+}
+.cos_btns input{
+	margin-left: 13%;
+	
+}
+
+.cos_reg_btn{
+	margin-left: 11%;
+}
+
+
 
 
 
