@@ -14,6 +14,6 @@ public class WebViewController {
 	@RequestMapping("/viewRegist.do")
 	public String viewRegist() {
 
-		return "../../cos_register2";
+		return "../../cos_register";
 	}
 }

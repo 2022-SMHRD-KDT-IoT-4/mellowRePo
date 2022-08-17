@@ -764,9 +764,7 @@ progress {
 
 .col-5 {
   flex: 0 0 auto;
-  width: 41.66666667
-
-;
+  width: 41.66666667%;
 }
 
 .col-6 {
@@ -2210,7 +2208,7 @@ progress {
 
 .form-control, .dataTable-input {
   display: block;
-  width: 100%;
+  width: 91.5%;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -2260,8 +2258,6 @@ progress {
   opacity: 1;
 }
 .form-control:disabled, .dataTable-input:disabled, .form-control[readonly], [readonly].dataTable-input {
-  background-color: #e9ecef;
-  opacity: 1;
 }
 .form-control::-webkit-file-upload-button, .dataTable-input::-webkit-file-upload-button {
   padding: 0.375rem 0.75rem;
@@ -2430,6 +2426,10 @@ textarea.form-control-lg {
 
 .form-select, .dataTable-selector {
   display: block;
+  text-align-last: center;
+  text-align: center; 
+  -ms-text-align-last: center;
+  -moz-text-align-last: center;
   width: 91.5%;
   text-align:center;
   padding: 0.375rem 2.25rem 0.375rem 0.75rem;
@@ -3162,7 +3162,7 @@ textarea.form-control-lg {
 }
 
 .btn-info {
-  color: #000;
+  color: #fff;
   background-color: #0dcaf0;
   border-color: #0dcaf0;
 }
@@ -4103,7 +4103,7 @@ textarea.form-control-lg {
 .navbar-nav {
   display: flex;
   flex-direction: column;
-  padding-left: 23.5%;
+  padding-left: 40%;
   margin-bottom: 0;
   list-style: none;
 }
@@ -11390,12 +11390,7 @@ textarea.form-control-lg {
   #layoutSidenav #layoutSidenav_nav {
     transform: translateX(0);
   }
-  #cli{
-  margin: 50px;
-  width: 700px;
-  height: 40%;
-  
-  }
+
   #layoutSidenav #layoutSidenav_content {
     margin-left: 0;
     transition: margin 0.15s ease-in-out;
@@ -11813,6 +11808,7 @@ textarea.form-control-lg {
 }
 .cos_table{
 	position: sticky;
+	width: 100px;
 }
 
 .cos_list::-webkit-scrollbar {
@@ -11830,78 +11826,10 @@ textarea.form-control-lg {
 	top:0;
 	right: 0;
 }
-
-.cos_circle{
-	position: absolute;
-	left: 650px;
-	top: 150px;
-	
-}
-.cos_bar{
-	position: absolute;
-	top:900px;
-	left:780px;
-}
-
-.cos_barcode{
-	width: 400px;
-}
-
-.cos_bar_res{
-	position: absolute;
-	top: 1500px;
-	left: 730px;
-}
-
-.cos_bar_res input{
-	width: 500px;
-}
-.form-horizontal {
-  width:700px;
-  padding: 20px 20px 0;
-  position: absolute;
-  left: -80px;
-  padding-bottom: 50px;
-  /*  border: 1px dotted black; */
-}
-
-.form-horizontal_1{
- width:700px;
-  padding: 20px 20px 0;
-  position: absolute;
-  left: -180px;
-  padding-bottom: 50px;
-}
-
-
-
-.hr1 {
-	
-  width:100%;
-  
-  display: block;
-
-  margin-top: 0.5em;
-
-  margin-bottom: 0.5em;
-
-  margin-left: auto;
-
-  margin-right: auto;
-
-  border-style: inset;
-
-  border-width: 1px;
-  
-  position: absolute;
-  
-  top: 1100px;
-}
 .cos_found{
-	
-  position: absolute;
-	left: 120px;
-	top: -300px;
+ position: absolute;
+ left: 18%;
+ top: -350px;
 	
 }
 .col-12_reg{
@@ -11912,11 +11840,11 @@ textarea.form-control-lg {
 }
 
 .col-sm-10_sel{
+	position: relative;
 	display: flex;
     flex-direction: row;
-    width: 650px;
-    position: absolute;
-    left: -110px;
+    width: 100%;
+    left: 1%
   }
 
 .col-sm-2_sel{
@@ -12043,6 +11971,7 @@ input[type="range"]::-webkit-slider-thumb{
 .cli{
 	position:absolute;
 	top:70%;
+	pointer-events: none;
 	
 }
 .menu_text{
@@ -12084,7 +12013,211 @@ input[type="range"]::-webkit-slider-thumb{
 	margin-left: 11%;
 }
 
+.new_cos_reg{
+  position: absolute;
+  width:18%;
+  left: 45%;
+  top: 20%;
+  /*border: 1px dotted black;*/
+}
 
+.cos_bar{
+	position: absolute;
+	width:60%;
+	height:10%;
+	top: 37%;
+	left:20%;
+}
+
+.cos_barcode{
+	width: 400px;
+}
+
+.cos_bar_res input{
+	width: 30%;
+}
+
+.hr1 {
+	
+  position:absolute;
+	
+  width:100%;
+  
+  display: block;
+
+  margin-top: 0.5em;
+
+  margin-bottom: 0.5em;
+
+  margin-left: auto;
+
+  margin-right: auto;
+
+  border-style: inset;
+
+  border-width: 1px;
+  
+  top: 80%;
+}
+.cos_bar_res2{
+  
+    position: absolute;
+    width: 80%;
+    top: 90%;
+    left: 13%;
+    /*border: 1px dotted black;*/
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+  
+}
+
+.cos_found2{
+	position: relative;
+    left: 25%;
+    width: 40%;
+    height: 10%;
+}
+.form-horizontal {
+  width: 85%;
+  padding: 20px 20px 0;
+  padding-bottom: 50px;
+  /*  border: 1px dotted black; */
+}
+
+input[readonly] sc{
+  background-color:transparent;
+  border: 0;
+}
+
+.fri_tem_div{
+	position:absolute;
+    width: 95%;
+    height: 80%;
+    top: 15%;
+    left: 2%;
+    /*border: 1px dotted black; */
+}
+
+.fri_tem_title{
+	position:absolute;
+	left:5%;
+	top:4%;
+	width:17%;
+	/*border: 1px dotted black;*/
+	
+}
+
+
+.fri_tem_img{
+    position:absolute;
+	left:8%;
+	top:15%;
+	width:35%;
+	height:78%;
+	/*border: 1px dotted black;*/
+	
+}
+.fri_20{
+	width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.fri_tem_cho{
+	
+	position:absolute;
+	left:57%;
+	top:15%;
+	width:30%;
+	height:78%;
+	/*border: 1px dotted black; */
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	
+}
+
+.fri_tem_cho input{
+	width: 100%;
+	height: 100%;
+}
+
+.fri_tem_cho_20{
+	width:100%;
+	height:33.3%;
+	margin: 3%;
+	/*border: 1px dotted black; */
+	
+}
+
+.fri_tem_cho_15{
+	
+	width:100%;
+	height:33.3%;
+	margin: 3%;
+	/*border: 1px dotted black;*/
+	
+}
+
+.fri_tem_cho_10{
+	
+	width:100%;
+	height:33.3%;
+	margin: 3%;
+	/*border: 1px dotted black;*/
+}
+
+
+.led_con_div{
+	position:absolute;
+    width: 95%;
+    height: 80%;
+    top: 15%;
+    left: 2%;
+    /*border: 1px dotted black;*/
+}
+
+.led_con_title{
+	position:absolute;
+	left:5%;
+	top:4%;
+	width:17%;
+	/*border: 1px dotted black;*/
+}
+.led_con_img{
+	position:absolute;
+	left:8%;
+	top:15%;
+	width:35%;
+	height:78%;
+	/*border: 1px dotted black;*/
+}
+.len_con_cho{
+	
+	position:absolute;
+	left: 67%;
+    top: 40%;
+	/*border: 1px dotted black;*/
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 50%;
+	
+}
+.led_con_basic{
+    width:100%;
+    height:100%;
+    object-fit:scale-down;
+}
+.toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20rem; }
+.toggle.ios .toggle-handle { border-radius: 20rem; }
+.slow  .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
 
 
 
