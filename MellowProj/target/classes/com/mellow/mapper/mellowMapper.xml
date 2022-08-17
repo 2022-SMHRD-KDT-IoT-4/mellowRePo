@@ -24,41 +24,41 @@
    <!-- 화장품 리스트 출력(전체) -->
    <select id="cosmeticList"
       resultType="com.mellow.domain.CosmeticVO">
-      select a.cos_name, b.cos_type,b.open_yn, b.open_date,
-      ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
+      select b.req_seq, a.cos_name, b.cos_type,b.open_yn, b.open_date,
+      ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date, a.cos_file
       from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
       where a.barcode = b.barcode
       and b.cos_type = c.cos_type
       and user_id = #{user_id}
       order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
-      discard_date END desc
+      discard_date END
    </select>
    
    <!-- 화장품 리스트 출력(미개봉) -->
    <select id="coslistClose"
       resultType="com.mellow.domain.CosmeticVO">
-      select a.cos_name, b.cos_type,b.open_yn, b.open_date,
-      exp_date as discard_date, exp_date
+      select b.req_seq, a.cos_name, b.cos_type,b.open_yn, b.open_date,
+      exp_date as discard_date, exp_date,a.cos_file
       from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
       where a.barcode = b.barcode
       and b.cos_type = c.cos_type
       and b.open_yn ='N'
       and user_id = #{user_id}
-      order by exp_date desc
+      order by exp_date
    </select>
    
    <!-- 화장품 리스트 출력(개봉) -->
    <select id="coslistOpen"
       resultType="com.mellow.domain.CosmeticVO">
       select b.req_seq,a.cos_name, b.cos_type,b.open_yn, b.open_date,
-      ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date
+      ADD_MONTHS(b.open_date,c.using_date) as discard_date,exp_date,a.cos_file
       from tbl_cosmetic_info a,tbl_user_cosmetic b, tbl_using_date c
       where a.barcode = b.barcode
       and b.cos_type = c.cos_type
       and b.open_yn = 'Y'
       and user_id = #{user_id}
       order by CASE WHEN discard_date>exp_date THEN exp_date ELSE
-      discard_date END desc
+      discard_date END
    </select>
 
 
@@ -68,31 +68,38 @@
       select * from tbl_cosmetic_info where barcode = #{barcode}
    </select>
 
-	<!-- 화장품 등록 -->
-	<insert id="registCos" parameterType="com.mellow.domain.CosmeticVO">
-		insert into
-		tbl_user_cosmetic(req_seq,barcode,cos_type,exp_date,open_yn,open_date,user_id)
-		values(
-		req_seq.nextval,#{barcode},#{cos_type},#{exp_date},#{open_yn},#{open_date},#{user_id}
-		)
-	</insert>
-	
-	<!-- 미개봉에서 개봉으로 바꿨을 때 -->
-	<update id="btnOpen" parameterType="com.mellow.domain.CosmeticVO">
-	    update tbl_user_cosmetic set open_date = sysdate and open_yn='Y' where user_id=#{user_id} and barcode=#{barcode}
-	</update>
-	
-	<!-- 삭제 선택했을 때 -->
-	<delete id="btnDelete" parameterType="com.mellow.domain.CosmeticVO">
-	    delete from tbl_user_cosmetic where user_id=#{user_id} and barcode = #{barcode}
-	</delete>
-	
-	<!-- 화장품 선택 시 각각 화장품의 상세정보 내역 -->
-	<select id="cosInfo" parameterType="String" resultType="com.mellow.domain.cosmeticinfoVO">
-		select cos_name, cos_type,
-		brand_name, cos_dosage, cos_effect, cos_spf, cos_pa
-		from
-		tbl_cosmetic_info where cos_name = #{cos_name};
-	</select>
+   <!-- 화장품 등록 -->
+   <insert id="registCos" parameterType="com.mellow.domain.CosmeticVO">
+      insert into
+      tbl_user_cosmetic(req_seq,barcode,cos_type,exp_date,open_yn,open_date,user_id)
+      values(
+      req_seq.nextval,#{barcode},#{cos_type},#{exp_date},#{open_yn},#{open_date},#{user_id}
+      )
+   </insert>
+   
+   <!-- 미개봉에서 개봉으로 바꿨을 때 -->
+   <update id="btnOpen" parameterType="com.mellow.domain.CosmeticVO">
+       update tbl_user_cosmetic set open_date = sysdate and open_yn='Y' where user_id=#{user_id} and barcode=#{barcode}
+   </update>
+   
+   <!-- 삭제 선택했을 때 -->
+   <delete id="btnDelete" parameterType="com.mellow.domain.CosmeticVO">
+       delete from tbl_user_cosmetic where user_id=#{user_id} and req_seq = #{req_seq}
+   </delete>
+   
+   <!-- 화장품 선택 시 각각 화장품의 상세정보 내역 -->
+   <select id="cosInfo" parameterType="String" resultType="com.mellow.domain.cosmeticinfoVO">
+      select cos_name, cos_type,
+      brand_name, cos_dosage, cos_effect, cos_spf, cos_pa
+      from
+      tbl_cosmetic_info where cos_name = #{cos_name}
+   </select>
+   
+   <!-- 화장품 API따온 값 넣기 -->
+   <update id="cosInfoUpdate" parameterType="com.mellow.domain.cosmeticinfoVO">
+       update tbl_cosmetic_info set brand_name=#{brand_name}, cos_dosage = #{cos_dosage}, cos_effect = #{cos_effect},
+       cos_spf = #{cos_spf},cos_pa = #{cos_pa}
+       where cos_name =#{cos_name}
+   </update>
 
 </mapper>

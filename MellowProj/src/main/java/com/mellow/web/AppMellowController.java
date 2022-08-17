@@ -270,18 +270,20 @@ public class AppMellowController {
 	   
 	   
 	   
-		   
-		   @RequestMapping("/cosmetic_delete.do")
-		   public @ResponseBody JSONObject cosmetic_delete(String user_id,String req_seq){
-			  
+	   //리스트 삭제하기
+	   //user_id, req_seq받아서 ㄱㄱ
+		   @RequestMapping("/btnDelete.do")
+		   public @ResponseBody JSONObject btnDelete(ServletRequest request){
+			   System.out.println("delete Test: "+ request.getParameter("req_seq"));
+			   String req_seq=request.getParameter("req_seq");
 			   
-			   CosmeticVO result=mapper.btnDelete(user_id,req_seq);
+			   int result = mapper.btnDelete(req_seq);			   
 			   System.out.println(result);
 			   JSONObject vo1=new JSONObject();
 			   vo1.put("list", result);
 			   String url="";
 			   
-			   if (result!=null) {
+			   if (result > 0) {
 				   System.out.println("delete success");
 				   return vo1;
 			   }else {
@@ -290,6 +292,32 @@ public class AppMellowController {
 			   }
 			   
 		   }
+		   
+		   
+		   //리스트 개봉여부수정하기
+		   //user_id, req_seq받아서 ㄱㄱ
+			   @RequestMapping("/btnOpen.do")
+			   public @ResponseBody JSONObject btnOpen(ServletRequest request){
+				   System.out.println("수정되니? : "+ request.getParameter("req_seq"));
+				   String req_seq=request.getParameter("req_seq");
+				   
+				   int result = mapper.btnOpen(req_seq);			   
+				   System.out.println(result);
+				   JSONObject vo1=new JSONObject();
+				   vo1.put("list", result);
+				   String url="";
+				   
+				   if (result > 0) {
+					   System.out.println("수정 success");
+					   return vo1;
+				   }else {
+					   System.out.println("수정 fail");
+					   return null;
+				   }
+				   
+			   }
+		   
+		   
 	   
 	   
 //	   @RequestMapping("/cosmetic_delete.do")
