@@ -68,38 +68,46 @@
       select * from tbl_cosmetic_info where barcode = #{barcode}
    </select>
 
-	<!-- 화장품 등록 -->
-	<insert id="registCos" parameterType="com.mellow.domain.CosmeticVO">
-		insert into
-		tbl_user_cosmetic(req_seq,barcode,cos_type,exp_date,open_yn,open_date,user_id)
-		values(
-		req_seq.nextval,#{barcode},#{cos_type},#{exp_date},#{open_yn},#{open_date},#{user_id}
-		)
-	</insert>
-	
-	<!-- 미개봉에서 개봉으로 바꿨을 때 -->
-	<update id="btnOpen" parameterType="com.mellow.domain.CosmeticVO">
-	    update tbl_user_cosmetic set open_date = sysdate and open_yn='Y' where user_id=#{user_id} and barcode=#{barcode}
+   <!-- 화장품 등록 -->
+   <insert id="registCos" parameterType="com.mellow.domain.CosmeticVO">
+      insert into
+      tbl_user_cosmetic(req_seq,barcode,cos_type,exp_date,open_yn,open_date,user_id)
+      values(
+      req_seq.nextval,#{barcode},#{cos_type},#{exp_date},#{open_yn},#{open_date},#{user_id}
+      )
+   </insert>
+   
+
+   
+   <!-- 미개봉에서 개봉으로 바꿨을 때 -->
+	<update id="btnOpenApp" parameterType="com.mellow.domain.CosmeticVO">
+	    update tbl_user_cosmetic set open_date = sysdate, open_yn='Y' where req_seq=#{req_seq}
 	</update>
-	
-	<!-- 삭제 선택했을 때 -->
-	<delete id="btnDelete" parameterType="com.mellow.domain.CosmeticVO">
-	    delete from tbl_user_cosmetic where user_id=#{user_id} and req_seq = #{req_seq}
+   
+   <!-- 삭제 선택했을 때 -->
+   <delete id="btnDelete" parameterType="com.mellow.domain.CosmeticVO">
+       delete from tbl_user_cosmetic where user_id=#{user_id} and req_seq = #{req_seq}
+   </delete>
+   
+   <!-- 삭제 선택했을 때 -->
+	<!-- user_id도 받아와야함 -->
+	<delete id="btnDeleteApp" parameterType="com.mellow.domain.CosmeticVO">
+	    delete tbl_user_cosmetic where req_seq=#{req_seq}
 	</delete>
-	
-	<!-- 화장품 선택 시 각각 화장품의 상세정보 내역 -->
-	<select id="cosInfo" parameterType="String" resultType="com.mellow.domain.cosmeticinfoVO">
-		select cos_name, cos_type,
-		brand_name, cos_dosage, cos_effect, cos_spf, cos_pa
-		from
-		tbl_cosmetic_info where cos_name = #{cos_name}
-	</select>
-	
-	<!-- 화장품 API따온 값 넣기 -->
-	<update id="cosInfoUpdate" parameterType="com.mellow.domain.cosmeticinfoVO">
-	    update tbl_cosmetic_info set brand_name=#{brand_name}, cos_dosage = #{cos_dosage}, cos_effect = #{cos_effect},
-	    cos_spf = #{cos_spf},cos_pa = #{cos_pa}
-	    where cos_name =#{cos_name}
-	</update>
+   
+   <!-- 화장품 선택 시 각각 화장품의 상세정보 내역 -->
+   <select id="cosInfo" parameterType="String" resultType="com.mellow.domain.cosmeticinfoVO">
+      select cos_name, cos_type,
+      brand_name, cos_dosage, cos_effect, cos_spf, cos_pa
+      from
+      tbl_cosmetic_info where cos_name = #{cos_name}
+   </select>
+   
+   <!-- 화장품 API따온 값 넣기 -->
+   <update id="cosInfoUpdate" parameterType="com.mellow.domain.cosmeticinfoVO">
+       update tbl_cosmetic_info set brand_name=#{brand_name}, cos_dosage = #{cos_dosage}, cos_effect = #{cos_effect},
+       cos_spf = #{cos_spf},cos_pa = #{cos_pa}
+       where cos_name =#{cos_name}
+   </update>
 
 </mapper>
