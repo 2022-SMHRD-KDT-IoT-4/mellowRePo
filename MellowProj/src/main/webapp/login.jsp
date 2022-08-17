@@ -1,67 +1,79 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Login - SB Admin</title>
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    </head>
-    
-    <body>
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                <main>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                        
-                        
-                        
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">로그인</h3></div>
-                                    <div class="card-body">
-                                        <form>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
-                                            </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
-                                                <label for="inputPassword">Password</label>
-                                            </div>
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">비밀번호 기억하기</label>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">비밀번호를 잊어버리셨나요?</a>
-                                                <a class="btn btn-primary" href="index.html">Login</a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.html">회원가입</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            
-                            
-                        </div>
-                    </div>
-                </main>
-            </div>
-            
-            
-            
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-    </body>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link href="css/login.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/login.js"></script>
+	
+</head>
+<body>
+
+		<section class="login-form">
+				<h2>melloW</h2>
+				<h1>W</h1>
+				<h2>Warehouse</h2>
+<!--여기부터 넣어주삼 -->
+				<form action="login.do" method="post">
+					<div class="int-area">
+							<input type="text" name="user_id" id="id"
+							autocapitalize="off" required>
+							<label for="id">USER NAME</label>
+					</div>		
+					
+					<div class="int-area">
+							<input type="password" name="user_pw" id="pw"
+							autocapitalize="off" required>
+							<label for="pw">PASSWORD</label>
+					</div>
+					<div class="btn-area">
+						 <button id="btn" type="submit">LOGIN</button>
+					</div>
+				</form>
+	<!--여기까지 넣어주삼 -->			
+				<div class="caption">
+						<a href="">Forgot Password?</a>
+				</div>
+		
+		
+		</section>
+		
+		
+		<script>
+		
+		$(document).ready(function(){
+			
+			  var id = $('#id');
+			   var pw = $('#pw');
+			   var btn = $('#btn');
+						   
+						  
+						   $(btn).on('click', function() {
+								if($(id).val()==""){
+									$(id).next('label').addClass('warning');
+									setTimeout(() => {
+										$('label').removeClass('warning');
+									}, 1500);
+									
+								}
+								else if($(pw).val()==""){
+									$(pw).next('label').addClass('warning');
+									setTimeout(() => {
+										$('label').removeClass('warning');
+									}, 1500);
+								}
+						});
+			
+			
+		});
+		
+		
+		 
+		</script>
+		
+	
+</body>
 </html>
