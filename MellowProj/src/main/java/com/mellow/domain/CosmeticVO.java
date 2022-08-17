@@ -20,6 +20,6 @@ public class CosmeticVO {
 	private String discard_date;
 	private String user_id;
 	private String cos_file;
-	
-	private String listType;	
+	private String listType;
+	private String cos_effect;
 }

@@ -119,11 +119,15 @@ public class WebRestController {
 		return result;
 	}
 	
-	@RequestMapping("/sunInfo.do")
-	public void sunInfo() {
+	@RequestMapping("/weatherInfo.do")
+	public @ResponseBody CosmeticVO sunInfo(String user_id) {
+		String cos_effect = "";
 		String yesterday = "2022081600";
 		String today = "20220817";
+		
 		moduleDAO dao = new moduleDAO();
+		CosmeticVO cosVO = new CosmeticVO();
+	
 		int sunData = dao.sunAPI(yesterday);
 		weatherVO vo =dao.weatherAPI(today);
 		System.out.println();
@@ -133,8 +137,23 @@ public class WebRestController {
 		System.out.println("최고온도 :"+vo.getTmx());
 		System.out.println("강수확률 :"+vo.getRainPerc());
 		
-		
-		
+		cosVO.setUser_id(user_id);
+		if(vo.getSunData()>6) {
+			cosVO.setCos_effect("자외선차단");
+		}else if(vo.getRainPerc()>=70.0) {
+			// 파우더 제품 추천
+			cosVO.setCos_effect("파우더");
+		}else if(vo.getTmx()>28) {
+			// 쿨링마스크 제품
+			cosVO.setCos_effect("수분진정");
+		}else {
+			// 크림 추천
+			cosVO.setCos_effect("수분");
+		}
+		ArrayList<CosmeticVO> cos_list = mapper.cosRecommend(cosVO);
+		CosmeticVO cosmetic =cos_list.get(0);
+		System.out.println(cosmetic);
+		return cosmetic;
 	}
 
 	// 냉장고 온도조절, LED ON/OFF 제어

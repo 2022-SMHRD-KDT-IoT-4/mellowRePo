@@ -22,4 +22,5 @@ public interface mellowMapper {
    public cosmeticinfoVO cosInfo(String cos_name);
    public CosmeticVO btnDelete(String user_id, String req_seq); //화장품리스트 삭제
    public int cosInfoUpdate(cosmeticinfoVO vo);
+   public ArrayList<CosmeticVO> cosRecommend(CosmeticVO cosVO);
 }
