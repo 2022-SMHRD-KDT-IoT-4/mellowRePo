@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mellow.domain.CosmeticVO;
 import com.mellow.domain.cosmeticinfoVO;
+import com.mellow.domain.weatherVO;
 import com.mellow.mapper.mellowMapper;
 
 @Controller
@@ -120,8 +121,19 @@ public class WebRestController {
 	
 	@RequestMapping("/sunInfo.do")
 	public void sunInfo() {
+		String yesterday = "2022081600";
+		String today = "20220817";
 		moduleDAO dao = new moduleDAO();
-		dao.sunAPI();
+		int sunData = dao.sunAPI(yesterday);
+		weatherVO vo =dao.weatherAPI(today);
+		System.out.println();
+		vo.setSunData(sunData);
+		System.out.println("====================================");
+		System.out.println("자외선 :"+vo.getSunData());
+		System.out.println("최고온도 :"+vo.getTmx());
+		System.out.println("강수확률 :"+vo.getRainPerc());
+		
+		
 		
 	}
 
