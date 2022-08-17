@@ -276,8 +276,9 @@ public class AppMellowController {
 		   public @ResponseBody JSONObject btnDelete(ServletRequest request){
 			   System.out.println("delete Test: "+ request.getParameter("req_seq"));
 			   String req_seq=request.getParameter("req_seq");
-			   
-			   int result = mapper.btnDelete(req_seq);			   
+			   CosmeticVO vo = new CosmeticVO();
+			   vo.setReq_seq(req_seq);
+			   int result = mapper.btnDeleteApp(vo);			   
 			   System.out.println(result);
 			   JSONObject vo1=new JSONObject();
 			   vo1.put("list", result);
@@ -300,8 +301,9 @@ public class AppMellowController {
 			   public @ResponseBody JSONObject btnOpen(ServletRequest request){
 				   System.out.println("수정되니? : "+ request.getParameter("req_seq"));
 				   String req_seq=request.getParameter("req_seq");
-				   
-				   int result = mapper.btnOpen(req_seq);			   
+				   CosmeticVO vo = new CosmeticVO();
+				   vo.setReq_seq(req_seq);
+				   int result = mapper.btnOpenApp(vo);			   
 				   System.out.println(result);
 				   JSONObject vo1=new JSONObject();
 				   vo1.put("list", result);

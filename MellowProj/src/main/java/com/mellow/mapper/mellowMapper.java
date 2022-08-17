@@ -16,7 +16,9 @@ public interface mellowMapper {
    public cosmeticinfoVO barcodeRead(String barcode); //바코드에 맞는 상품명 출력
    public int registCos(CosmeticVO vo); // 화장품 등록정보 저장
    public int btnOpen(CosmeticVO vo);
+   public int btnOpenApp(CosmeticVO vo);
    public int btnDelete(CosmeticVO vo);
+   public int btnDeleteApp(CosmeticVO vo);
    public cosmeticinfoVO cosInfo(String cos_name);
    public CosmeticVO btnDelete(String user_id, String req_seq); //화장품리스트 삭제
    public int cosInfoUpdate(cosmeticinfoVO vo);
