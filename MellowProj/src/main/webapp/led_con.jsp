@@ -20,6 +20,8 @@
 
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
 
 <script
@@ -35,6 +37,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -49,6 +52,7 @@
 <script type="text/javascript">
 <% UserVO vo = (UserVO)session.getAttribute("userInfo");%>
 </script>
+
 
 <script>
 $(document).ready(function(){
@@ -145,6 +149,7 @@ function toastr_msg(){
 
 }
 </script>
+
 
 <style media="screen" id="dayspedia_widget_58044d7e23cf17ec_style">
 /*COMMON*/
@@ -285,40 +290,26 @@ function toastr_msg(){
       
       
       
-      			<div class="fri_tem_div">
+      			<div class="led_con_div">
       				
       				
-      				<div class="fri_tem_title">
+      				<div class="led_con_title">
       				
-      					<h5>냉장고 온도 설정</h5>
+      					<h5>거울 LED 설정</h5>
       				</div>
       				
-      				<div class="fri_tem_img">
-      						<img class="fri_20" id="fri_tem_basic"src="assets/img/20.png"/>
+      				<div class="led_con_img">
+      						<img class="led_con_basic" id="led_con_basic" src="assets/img/led_off.png"/>
       						<input type='hidden' class='form-control' id='user_id' name ='user_id' value ='${userInfo.user_id}'>
       					
       				</div>
       				
  
       				
-      				<div class="fri_tem_cho">
+      				<div class="len_con_cho" id="len_con_cho">
       				
-      					<div class="fri_tem_cho_20">
-      					
-      						 <input class="fri_tem_btn20 btn btn-warning btn-rounded" type="button" id="tem_btn20" value="크림/오일/밤 
-20°C">
-      					
-      					</div>
-      					
-      					<div class="fri_tem_cho_15">
-      				  			<input class="fri_tem_btn15 btn btn-info btn-rounded"type="button" id="tem_btn15" value="기본 온도 
-15°C">
-      					</div>
-      					
-      					<div class="fri_tem_cho_10">
-      							<input class="fri_tem_btn10 btn btn-primary btn-rounded"type="button" id="tem_btn10" value="스킨/토너/로션 
-10°C">
-      					</div>
+ 
+      					<input type="checkbox" id="toggle-event" data-toggle="toggle" data-style="ios slow" data-onstyle="primary" data-offstyle="dark" data-width="200" data-height="100">
       					
       				
       				</div>
@@ -369,25 +360,20 @@ function toastr_msg(){
 </script>
 
  <script>
- $(function(){
-	   $("#tem_btn20").on("click",function(){
-		   
-	      $("#fri_tem_basic").prop('src','assets/img/20.png')
-	      
-	   });
+ 
+   $(function() {
+	 
+
+	   $("#len_con_cho").on('click', function() {
+		      if ( $("#toggle-event").prop('checked') ) {
+		    	  $("#led_con_basic").prop('src','assets/img/led_off.png');
+		      } else {
+		    	  $("#led_con_basic").prop('src','assets/img/led_on.png');
+		      }
+		    });
 	   
-	   $("#tem_btn15").on("click",function(){
-		   
-		      $("#fri_tem_basic").prop('src','assets/img/15.png')
-		      
-		   });
 	   
-	   $("#tem_btn10").on("click",function(){
-		   
-		      $("#fri_tem_basic").prop('src','assets/img/10.png')
-		      
-		   });
-	   });
+	  });
  </script>
 
 

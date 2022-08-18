@@ -42,87 +42,182 @@
 <script
    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/scripts.js"></script>
+
+
 <!--여기부터 넣어주삼 -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!--여기까지 넣어주삼 -->
+
 <script
    src="https://cdnjs.cloudflare./ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script src="assets/demo/chart-area-demo.js"></script>
-<script src="assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
-<script src="js/datatables-simple-demo.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
 <script type="text/javascript">
 <% UserVO vo = (UserVO)session.getAttribute("userInfo");%>
 </script>
 <!--여기부터 넣어주삼 -->
+
+
 <script>
 $(document).ready(function(){
-	cosAllView();
+	
+ 	  toastr.options = {
+			  "closeButton": false,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": true,
+			  "positionClass": "toast-bottom-right",
+			  "preventDuplicates": false,
+			  "onclick":function() { location.replace('index.jsp'); },
+			  "showDuration": "100",
+			  "hideDuration": "1000",
+			  "timeOut": "30000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+   toastr_msg(cnt);
+   cosAllView();
+   setInterval(toastr_msg, 5000);
+   
  });
 
 function cosAllView(){
 
-		   var user_id = $("#user_id").val();
-		   console.log(user_id)
-	      $.ajax({
-	          url : "coslistAll.do",
-	             type : "get",
-	             data : {"user_id" : user_id },
-	             success : function(res){
-	            	 
-	            	 cosAll(res)
-	             },
-	             error : 
-	                function(){ 
-	                console.log("no");
-	                alert("error"); }
-	   });
-	   
+         var user_id = $("#user_id").val();
+         console.log(user_id)
+         $.ajax({
+             url : "coslistAll.do",
+                type : "get",
+                data : {"user_id" : user_id },
+                success : function(res){
+                   
+                   cosAll(res)
+                },
+                error : 
+                   function(){ 
+                   console.log("no");
+                   alert("error"); }
+      });
+      
 }
-	   
+
+
+function toastr_msg(){
+	  
+	  var user_id = $("#user_id").val();
+	  var date = [];
+	  var name = [];
+	
+     $.ajax({
+            url : "coslistAll.do",
+            type : "get",
+            data : {"user_id" : user_id },
+            success : function(res){
+          	  
+          	  
+          	  for(var i  in res){
+      				
+          		    name[i] = res[i].cos_name;
+      				date[i] = parseInt(res[i].discard_date.replace(/-/g,''));
+      				  				
+      			}
+          	  
+          	  var today = new Date();
+
+          	  var year = today.getFullYear();
+          	  var month = ('0' + (today.getMonth() + 1)).slice(-2);
+          	  var day = ('0' + today.getDate()).slice(-2);
+
+          	  var dateString = year + month  + day;
+          	  var dateString =  parseInt(dateString);
+
+
+          	  console.log(dateString);
+          	  console.log(name);
+			  console.log(date);
+			  
+			  console.log(date[0]-dateString)
+			  
+			  
+			  for(j in date){
+				  
+			   if(date[j]-dateString == 3){
+			    toastr.warning(name[j]+"의 <br> 사용기한이 3일 남았습니다.");
+			  }else if(date[j]-dateString == 2){
+			    toastr.danger(name[j]+"의 <br> 사용기한이 2일 남았습니다.");
+			  }else if(date[j]-dateString == 1){
+			    toastr.danger(name[j]+"의 <br> 사용기한이 1일 남았습니다.");
+			  }else if(date[j]-dateString <= 0){
+			    toastr.danger(name[j]+"의 <br> 사용기한이 지났습니다.<br>바로 폐기해 주세요");
+			  }
+			 
+			  
+			 }
+		         
+				 
+            },
+            error : 
+               function(){ 
+               console.log("no");
+               alert("error"); 
+               }
+  });
+     
+     
+  
+  
+}
+      
 function cosCloseView(){
-		   var user_id = $("#user_id").val();
-		   console.log(user_id)
-	      $.ajax({
-	          url : "coslistClose.do",
-	             type : "get",
-	             data : {"user_id" : user_id },
-	             success : function(res){
-	            	 cosAll(res)
-	             },
-	             error : 
-	                function(){ 
-	                console.log("no");
-	                alert("error"); }
-	   });
-	   
+         var user_id = $("#user_id").val();
+         console.log(user_id)
+         $.ajax({
+             url : "coslistClose.do",
+                type : "get",
+                data : {"user_id" : user_id },
+                success : function(res){
+                   cosAll(res)
+                },
+                error : 
+                   function(){ 
+                   console.log("no");
+                   alert("error"); }
+      });
+      
 }
-	   
+      
 function cosOpenView(){
-		   var user_id = $("#user_id").val();
-		   console.log(user_id)
-	      $.ajax({
-	          url : "coslistOpen.do",
-	             type : "get",
-	             data : {"user_id" : user_id },
-	             success : function(res){
-	            	 cosAll(res)
-	             },
-	             error : 
-	                function(){ 
-	                console.log("no");
-	                alert("error"); }
-	   });
-	   
+         var user_id = $("#user_id").val();
+         console.log(user_id)
+         $.ajax({
+             url : "coslistOpen.do",
+                type : "get",
+                data : {"user_id" : user_id },
+                success : function(res){
+                   cosAll(res)
+                },
+                error : 
+                   function(){ 
+                   console.log("no");
+                   alert("error"); }
+      });
+      
 }
-	   
+      
 function cosAll(data){
-	$("#cosView").html("");
-	   console.log(data)
-	    
-	   $.each(data,function(index,obj){ //obj->{"idx":1,"title":"aaa" ~ } 
-		    var list =`<div class="cos_item">
-	          
+   $("#cosView").html("");
+     // console.log(data)
+       
+      $.each(data,function(index,obj){ //obj->{"idx":1,"title":"aaa" ~ } 
+          var list =`<div class="cos_item">
+             
        <table class="cos_table">
         <tr id ="cosImg">
         <td><img class="cos_img" src="\${obj.cos_file}" width="200px;" height="150px;" onclick ="cosInfo(\${index},'\${obj.cos_name}')"/></td>             
@@ -140,52 +235,52 @@ function cosAll(data){
         </tr>
         
         
-    	
+       
         
        
         
        </table>   
                
       </div>`
-			   $("#cosView").append(list);
-	       });
-	   
-	   
-	    
-	 }
+            $("#cosView").append(list);
+          });
+      
+      
+       
+    }
 
 
 function cosDelAll(req_seq,listType){
-	 var user_id = $("#user_id").val();
-	   console.log(user_id);
-	   console.log(req_seq);
-	   console.log(listType);
-	   
+    var user_id = $("#user_id").val();
+      console.log(user_id);
+      console.log(req_seq);
+      console.log(listType);
+      
    $.ajax({
        url : "cosDelete.do",
           type : "get",
           data : {"user_id" : user_id,
-       	       "req_seq" : req_seq},
+                 "req_seq" : req_seq},
           success : function(){
-        		  
-        	  if(listType=='2'){
-        		  console.log("미개봉")
-        		  cosCloseView()
-        	  }else if(listType=='3'){
-        		  console.log("개봉")
-        		  cosOpenView()
-        	  }else{
-        		  console.log("전체")
-        		  cosAllView()
-        	  }
-        	  
+                
+             if(listType=='2'){
+                console.log("미개봉")
+                cosCloseView()
+             }else if(listType=='3'){
+                console.log("개봉")
+                cosOpenView()
+             }else{
+                console.log("전체")
+                cosAllView()
+             }
+             
           },
           error : 
              function(){ 
              console.log("no");
              alert("error"); }
 });
-	
+   
 }
 
 var cnt =0;
@@ -193,32 +288,32 @@ var rest_a=""
 var rest_b=""
 var rest_c ="";
 function cosInfo(index,cos_name){
-	   console.log(cos_name);
-	 	console.log(index);
-	   
+      console.log(cos_name);
+       console.log(index);
+      
   $.ajax({
       url : "cosInfo.do",
          type : "get",
          data : {"cos_name" : cos_name},
          success : function(data){
-       		  
-       	  console.log(data)
-  		if(cnt==0){
-  			console.log(cnt)
-  			rest_a = $("#cosInfo_a"+index).html();
-  			rest_b = $("#cosInfo_b"+index).html();
-  			rest_c = $("#cosInfo_c"+index).html();
-  			document.getElementById("cosInfo_a"+index).innerHTML = "브랜드명 : "+data.brand_name;
-  			document.getElementById("cosInfo_b"+index).innerHTML = "사용법 : "+data.cos_dosage;
-  			document.getElementById("cosInfo_c"+index).innerHTML = "효능 : "+data.cos_effect;
-  			cnt=1;
-  		}else{
-  			console.log(cnt);
-  			document.getElementById("cosInfo_a"+index).innerHTML = rest_a;
-  			document.getElementById("cosInfo_b"+index).innerHTML = rest_b;
-  			document.getElementById("cosInfo_c"+index).innerHTML = rest_c;
-  			cnt=0
-  		}
+               
+            console.log(data)
+        if(cnt==0){
+           console.log(cnt)
+           rest_a = $("#cosInfo_a"+index).html();
+           rest_b = $("#cosInfo_b"+index).html();
+           rest_c = $("#cosInfo_c"+index).html();
+           document.getElementById("cosInfo_a"+index).innerHTML = "브랜드명 : "+data.brand_name;
+           document.getElementById("cosInfo_b"+index).innerHTML = "사용법 : "+data.cos_dosage;
+           document.getElementById("cosInfo_c"+index).innerHTML = "효능 : "+data.cos_effect;
+           cnt=1;
+        }else{
+           console.log(cnt);
+           document.getElementById("cosInfo_a"+index).innerHTML = rest_a;
+           document.getElementById("cosInfo_b"+index).innerHTML = rest_b;
+           document.getElementById("cosInfo_c"+index).innerHTML = rest_c;
+           cnt=0
+        }
        
          },
          error : 
@@ -226,15 +321,15 @@ function cosInfo(index,cos_name){
             console.log("no");
             alert("error"); }
 });
-	
+   
 }
 
-var bDisplay = true; function doDisplay(){ 	
-    var con = document.getElementById("myDIV"); 	
-    if(con.style.display=='none'){ 		
-        con.style.display = 'block'; 	
-    }else{ 		
-        con.style.display = 'none'; 	
+var bDisplay = true; function doDisplay(){    
+    var con = document.getElementById("myDIV");    
+    if(con.style.display=='none'){       
+        con.style.display = 'block';    
+    }else{       
+        con.style.display = 'none';    
     } 
 } 
 </script>
@@ -243,21 +338,23 @@ var bDisplay = true; function doDisplay(){
 /*COMMON*/
 .DPDC {
    display: table;
-   position: relative;
-   box-sizing: border-box;
-   font-size: 100.01%;
-   font-style: normal;
-   font-family: Arial;
-   background-position: 50% 50%;
-   margin-bottom: 1%;
-   margin-left: 26%; background-repeat : no-repeat;
-   background-size: cover;
-   overflow: hidden;
-   user-select: none;
-   width: 30%;
-   background-image: none;
-   background-color: initial;
-   background-repeat: no-repeat;
+	position: relative;
+	box-sizing: border-box;
+	font-size: 100.01%;
+	font-style: normal;
+	font-family: Arial;
+	background-position: 50% 50%;
+	margin-bottom: 1%;
+	background-repeat : no-repeat;
+	background-size: cover;
+	overflow: hiden;
+	user-select: none;
+	width: 30%;
+	left: 16%;
+	background-image: none;
+	background-color: initial;
+	background-repeat: no-repeat;
+	pointer-events: none;
 }
 
 .DPDCh {
@@ -314,7 +411,7 @@ var bDisplay = true; function doDisplay(){
          id="dayspedia_widget_58044d7e23cf17ec" host="https://dayspedia.com"
          ampm="true" nightsign="true" sun="false" auto="false">
 <!--여기부터 넣어주삼 -->
-	<input type="hidden" value="${userInfo.user_id}" id="user_id">
+   <input type="hidden" value="${userInfo.user_id}" id="user_id">
 <!--여기까지넣어주삼 -->
 
 
@@ -358,11 +455,11 @@ var bDisplay = true; function doDisplay(){
          </a>
             <ul class="dropdown-menu dropdown-menu-end"
                aria-labelledby="navbarDropdown">
-               <li><a class="dropdown-item" href="cos_retrieve.jsp">화장품
-                     목록 조회</a></li>
+               <li><a class="dropdown-item" href="index.jsp">화장품
+							목록 조회</a></li>
                <li><a class="dropdown-item" href="refrigerator_tem.jsp">냉장고
                      온도 제어</a></li>
-               <li><a class="dropdown-item" href="">거울 LED 제어</a></li>
+               <li><a class="dropdown-item" href="led_con.jsp">거울 LED 제어</a></li>
             </ul></li>
       </ul>
    </nav>
@@ -394,7 +491,7 @@ var bDisplay = true; function doDisplay(){
          </div>
             
          <div class="cos_reg_btn">
-             <input type="button" onclick="location.href='cos_register2.jsp'" class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" value="등록">
+             <input type="button" onclick="location.href='cos_register.jsp'" class="btn btn-outline-info btn-rounded" data-mdb-ripple-color="dark" value="등록">
          </div>
          
          
@@ -409,9 +506,11 @@ var bDisplay = true; function doDisplay(){
 <!--여기까지넣어주삼 -->      
       
       </div>
-      
-
-      <div class="cli">
+     
+    
+   </div>
+   
+         <div class="cli">
 
          <div class="tomorrow" data-location-id="065362" data-language="KO"
             data-unit-system="METRIC" data-skin="light"
@@ -434,22 +533,13 @@ var bDisplay = true; function doDisplay(){
          </div>
          <img src="assets/img/cos_skin.jpg" class="card-img-bottom" alt="...">
       </div>
-
-
-
-
-
-
-
-
-
-   </div>
-
-
-
-
-
-
+   
+   
+   
+   
+   
+   
+  </div>
 
 
 
@@ -483,8 +573,18 @@ var bDisplay = true; function doDisplay(){
       s.onload = function() {
          window.dwidget = new window.DigitClock();
          window.dwidget.init("dayspedia_widget_58044d7e23cf17ec");
+       
+		
+  
+			
       };
+      
+
+ 
+		
    </script>
+  
+ 
 
 
 

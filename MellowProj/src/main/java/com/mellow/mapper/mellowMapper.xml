@@ -34,6 +34,15 @@
       discard_date END
    </select>
    
+   <!-- 추천 화장품 -->
+   <select id="cosRecommend" parameterType="com.mellow.domain.CosmeticVO" resultType="com.mellow.domain.CosmeticVO">
+       select a.cos_name, a.cos_file, a.cos_effect
+       from tbl_cosmetic_info a, tbl_user_cosmetic b
+       where a.barcode = b.barcode
+       and user_id = #{user_id}
+       and cos_effect = #{cos_effect}
+   </select>
+   
    <!-- 화장품 리스트 출력(미개봉) -->
    <select id="coslistClose"
       resultType="com.mellow.domain.CosmeticVO">
