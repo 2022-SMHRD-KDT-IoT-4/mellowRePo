@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.mellow.domain.CosmeticVO;
 import com.mellow.domain.UserVO;
 import com.mellow.domain.cosmeticinfoVO;
+import com.mellow.domain.csVO;
 
 public interface mellowMapper {
    public UserVO userLogin(UserVO vo);
@@ -22,4 +23,7 @@ public interface mellowMapper {
    public cosmeticinfoVO cosInfo(String cos_name);
    public CosmeticVO btnDelete(String user_id, String req_seq); //화장품리스트 삭제
    public int cosInfoUpdate(cosmeticinfoVO vo);
+   public ArrayList<CosmeticVO> cosRecommend(CosmeticVO cosVO);
+   public int incuiryInsert(csVO cs); // 문의사항에 들어온값을 저장하기 위한 매퍼
+   public ArrayList<csVO> csList(String user_id);   // 리스트를 출력하기 위한 매퍼
 }
