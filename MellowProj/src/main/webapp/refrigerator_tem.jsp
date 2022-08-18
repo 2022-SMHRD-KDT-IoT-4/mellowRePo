@@ -70,7 +70,7 @@ $(document).ready(function(){
 			  "hideMethod": "fadeOut"
 			}
  toastr_msg();
- setInterval(toastr_msg, 5000);
+ setInterval(toastr_msg, 10000);
  
 });
 
@@ -144,6 +144,50 @@ function toastr_msg(){
 
 
 }
+var btnoption = "";
+
+
+function btn_click(num){
+	
+	 		
+				if(num == '3'){
+				   
+				      $("#fri_tem_basic").prop('src','assets/img/20.png');
+				      btnoption = "3";
+				}else if(num == '2'){
+					
+					  $("#fri_tem_basic").prop('src','assets/img/15.png');
+				      btnoption = "2";
+					
+				}else if(num == '1'){
+					
+				      $("#fri_tem_basic").prop('src','assets/img/10.png')
+				      btnoption="1";
+				      
+				}
+			
+				   
+
+	   
+	   $.ajax({
+	        url : "btn.do",
+	        type : "get",
+	        data : {"btnoption" : btnoption },
+	        success : function(){
+			     console.log("성공"+ btnoption);				
+			     
+	        },
+	        error : 
+	           function(){ 
+	           console.log("no");
+	           alert("error"); 
+	           }
+	     });
+	   
+	
+	
+}
+
 </script>
 
 <style media="screen" id="dayspedia_widget_58044d7e23cf17ec_style">
@@ -303,21 +347,21 @@ function toastr_msg(){
       				
       				<div class="fri_tem_cho">
       				
-      					<div class="fri_tem_cho_20">
+      					<div class="fri_tem_cho_20" >
       					
-      						 <input class="fri_tem_btn20 btn btn-warning btn-rounded" type="button" id="tem_btn20" value="크림/오일/밤 
-20°C">
+      						 <input class="fri_tem_btn20 btn btn-warning btn-rounded" type="button" id="tem_btn20" value="메이크업
+20°C" onclick="btn_click('3')">
       					
       					</div>
       					
       					<div class="fri_tem_cho_15">
-      				  			<input class="fri_tem_btn15 btn btn-info btn-rounded"type="button" id="tem_btn15" value="기본 온도 
-15°C">
+      				  			<input class="fri_tem_btn15 btn btn-info btn-rounded"type="button" id="tem_btn15" value="기초제품
+15°C" onclick="btn_click('2')">
       					</div>
       					
       					<div class="fri_tem_cho_10">
-      							<input class="fri_tem_btn10 btn btn-primary btn-rounded"type="button" id="tem_btn10" value="스킨/토너/로션 
-10°C">
+      							<input class="fri_tem_btn10 btn btn-primary btn-rounded"type="button" id="tem_btn10" value="쿨링제품
+10°C" onclick="btn_click('1')">
       					</div>
       					
       				
@@ -367,28 +411,6 @@ function toastr_msg(){
    });
    
 </script>
-
- <script>
- $(function(){
-	   $("#tem_btn20").on("click",function(){
-		   
-	      $("#fri_tem_basic").prop('src','assets/img/20.png')
-	      
-	   });
-	   
-	   $("#tem_btn15").on("click",function(){
-		   
-		      $("#fri_tem_basic").prop('src','assets/img/15.png')
-		      
-		   });
-	   
-	   $("#tem_btn10").on("click",function(){
-		   
-		      $("#fri_tem_basic").prop('src','assets/img/10.png')
-		      
-		   });
-	   });
- </script>
 
 
 

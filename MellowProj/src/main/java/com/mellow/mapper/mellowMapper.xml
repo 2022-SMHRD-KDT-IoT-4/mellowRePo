@@ -103,11 +103,33 @@
       tbl_cosmetic_info where cos_name = #{cos_name}
    </select>
    
+   <!-- 추천 화장품 -->
+   <select id="cosRecommend" parameterType="com.mellow.domain.CosmeticVO" resultType="com.mellow.domain.CosmeticVO">
+       select a.cos_name, a.cos_file, a.cos_effect
+       from tbl_cosmetic_info a, tbl_user_cosmetic b
+       where a.barcode = b.barcode
+       and user_id = #{user_id}
+       and cos_effect = #{cos_effect}
+   </select>
+   
+   
    <!-- 화장품 API따온 값 넣기 -->
    <update id="cosInfoUpdate" parameterType="com.mellow.domain.cosmeticinfoVO">
        update tbl_cosmetic_info set brand_name=#{brand_name}, cos_dosage = #{cos_dosage}, cos_effect = #{cos_effect},
        cos_spf = #{cos_spf},cos_pa = #{cos_pa}
        where cos_name =#{cos_name}
    </update>
+   
+   <!-- 문의사항에서 입력한 값을 저장 -->
+    <insert id="incuiryInsert" parameterType="com.mellow.domain.csVO">
+        insert into tbl_cs (q_seq, q_subject, q_date, q_content, user_id)
+      values (q_seq.nextval, #{q_subject}, sysdate, #{q_content}, #{user_id})
+    </insert>
+    
+    <!-- 리스트를 출력하기 위한 sql문 -->
+    <select id="csList" resultType="com.mellow.domain.csVO">
+        select * from tbl_cs
+        where user_id = #{user_id}
+    </select>
 
 </mapper>

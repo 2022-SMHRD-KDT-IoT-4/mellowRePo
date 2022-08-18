@@ -74,7 +74,7 @@ $(document).ready(function(){
 			  "hideMethod": "fadeOut"
 			}
  toastr_msg();
- setInterval(toastr_msg, 5000);
+ setInterval(toastr_msg, 10000);
  
 });
 
@@ -148,6 +148,116 @@ function toastr_msg(){
 
 
 }
+
+
+function btn_value(){
+	  
+	  var user_id = $("#user_id").val();
+	  var date = [];
+	  var name = [];
+	
+ $.ajax({
+        url : "coslistAll.do",
+        type : "get",
+        data : {"user_id" : user_id },
+        success : function(res){
+      	  
+      	  
+      	  for(var i  in res){
+  				
+      		    name[i] = res[i].cos_name;
+  				date[i] = parseInt(res[i].discard_date.replace(/-/g,''));
+  				  				
+  			}
+      	  
+      	  var today = new Date();
+
+      	  var year = today.getFullYear();
+      	  var month = ('0' + (today.getMonth() + 1)).slice(-2);
+      	  var day = ('0' + today.getDate()).slice(-2);
+
+      	  var dateString = year + month  + day;
+      	  var dateString =  parseInt(dateString);
+
+
+      	  console.log(dateString);
+      	  console.log(name);
+			  console.log(date);
+			  
+			  console.log(date[0]-dateString)
+			  
+			  
+			  for(j in date){
+				  
+			  if(date[j]-dateString == 7){
+			  	toastr.success(name[j]+"의 <br> 사용기한이 7일 남았습니다.");
+			   }else if(date[j]-dateString == 5){
+			    toastr.info(name[j]+"의 <br> 사용기한이 5일 남았습니다.");
+			  }else if(date[j]-dateString == 3){
+			    toastr.warning(name[j]+"의 <br> 사용기한이 3일 남았습니다.");
+			  }else if(date[j]-dateString == 2){
+			    toastr.danger(name[j]+"의 <br> 사용기한이 2일 남았습니다.");
+			  }else if(date[j]-dateString == 1){
+			    toastr.danger(name[j]+"의 <br> 사용기한이 1일 남았습니다.");
+			  }else if(date[j]-dateString <= 0){
+			    toastr.danger(name[j]+"의 <br> 사용기한이 지났습니다.<br>바로 폐기해 주세요");
+			  }
+			 
+			  
+			 }
+		         
+				 
+        },
+        error : 
+           function(){ 
+           console.log("no");
+           alert("error"); 
+           }
+});
+ 
+ 
+
+
+}
+
+
+
+var btnoption = "";
+
+
+function btn_led(){
+	 //($("#toggle-event").prop('checked')
+
+		      if ($("#toggle-event").prop('checked')) {
+		    	  $("#led_con_basic").prop('src','assets/img/led_off.png');
+		    	   btnoption="20";
+		      } else {
+		    	  $("#led_con_basic").prop('src','assets/img/led_on.png');
+		    	   btnoption="10";
+		      }
+
+	   
+	   $.ajax({
+	        url : "btn.do",
+	        type : "get",
+	        data : {"btnoption" : btnoption },
+	        success : function(){
+			     console.log("성공"+ btnoption);				
+			     
+	        },
+	        error : 
+	           function(){ 
+	           console.log("no");
+	           alert("error"); 
+	           }
+	     });
+	   
+	
+	
+}
+
+
+
 </script>
 
 
@@ -306,11 +416,12 @@ function toastr_msg(){
       				
  
       				
-      				<div class="len_con_cho" id="len_con_cho">
+      				<div onclick="btn_led()" class="len_con_cho" id="len_con_cho">
       				
- 
+ 					
       					<input type="checkbox" id="toggle-event" data-toggle="toggle" data-style="ios slow" data-onstyle="primary" data-offstyle="dark" data-width="200" data-height="100">
       					
+      				
       				
       				</div>
       			
@@ -359,22 +470,7 @@ function toastr_msg(){
    
 </script>
 
- <script>
- 
-   $(function() {
-	 
 
-	   $("#len_con_cho").on('click', function() {
-		      if ( $("#toggle-event").prop('checked') ) {
-		    	  $("#led_con_basic").prop('src','assets/img/led_off.png');
-		      } else {
-		    	  $("#led_con_basic").prop('src','assets/img/led_on.png');
-		      }
-		    });
-	   
-	   
-	  });
- </script>
 
 
 

@@ -195,11 +195,11 @@ function toastr_msg(){
 			  }else if(date[j]-dateString == 3){
 			    toastr.warning(name[j]+"의 <br> 사용기한이 3일 남았습니다.");
 			  }else if(date[j]-dateString == 2){
-			    toastr.danger(name[j]+"의 <br> 사용기한이 2일 남았습니다.");
+			    toastr.error(name[j]+"의 <br> 사용기한이 2일 남았습니다.");
 			  }else if(date[j]-dateString == 1){
-			    toastr.danger(name[j]+"의 <br> 사용기한이 1일 남았습니다.");
+			    toastr.error(name[j]+"의 <br> 사용기한이 1일 남았습니다.");
 			  }else if(date[j]-dateString <= 0){
-			    toastr.danger(name[j]+"의 <br> 사용기한이 지났습니다.<br>바로 폐기해 주세요");
+			    toastr.error(name[j]+"의 <br> 사용기한이 지났습니다.<br>바로 폐기해 주세요");
 			  }
 			 
 			  

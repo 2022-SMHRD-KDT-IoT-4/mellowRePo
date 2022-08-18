@@ -82,9 +82,10 @@ $(document).ready(function(){
 			  "showMethod": "fadeIn",
 			  "hideMethod": "fadeOut"
 			}
-   toastr_msg(cnt);
+   toastr_msg();
+   recommendCos();
    cosAllView();
-   setInterval(toastr_msg, 5000);
+   setInterval(toastr_msg, 30000);
    
  });
 
@@ -151,11 +152,11 @@ function toastr_msg(){
 			   if(date[j]-dateString == 3){
 			    toastr.warning(name[j]+"의 <br> 사용기한이 3일 남았습니다.");
 			  }else if(date[j]-dateString == 2){
-			    toastr.danger(name[j]+"의 <br> 사용기한이 2일 남았습니다.");
+			    toastr.error(name[j]+"의 <br> 사용기한이 2일 남았습니다.");
 			  }else if(date[j]-dateString == 1){
-			    toastr.danger(name[j]+"의 <br> 사용기한이 1일 남았습니다.");
+			    toastr.error(name[j]+"의 <br> 사용기한이 1일 남았습니다.");
 			  }else if(date[j]-dateString <= 0){
-			    toastr.danger(name[j]+"의 <br> 사용기한이 지났습니다.<br>바로 폐기해 주세요");
+			    toastr.error(name[j]+"의 <br> 사용기한이 지났습니다.<br>바로 폐기해 주세요");
 			  }
 			 
 			  
@@ -183,6 +184,7 @@ function cosCloseView(){
                 type : "get",
                 data : {"user_id" : user_id },
                 success : function(res){
+                	$("#cosView").html("");
                    cosAll(res)
                 },
                 error : 
@@ -201,6 +203,7 @@ function cosOpenView(){
                 type : "get",
                 data : {"user_id" : user_id },
                 success : function(res){
+                	$("#cosView").html("");
                    cosAll(res)
                 },
                 error : 
@@ -262,7 +265,7 @@ function cosDelAll(req_seq,listType){
           data : {"user_id" : user_id,
                  "req_seq" : req_seq},
           success : function(){
-                
+        	 $("#cosView").html("");
              if(listType=='2'){
                 console.log("미개봉")
                 cosCloseView()
@@ -332,6 +335,28 @@ var bDisplay = true; function doDisplay(){
         con.style.display = 'none';    
     } 
 } 
+
+
+function recommendCos(){
+    var user_id = $("#user_id").val();
+    console.log(user_id)
+ $.ajax({
+     url : "weatherInfo.do",
+        type : "get",
+        data : {"user_id" : user_id },
+        success : function(data){
+           document.getElementById("recomm_name").innerHTML = data.cos_name;
+           $("#recomm_img").attr("src",data.cos_file);
+        },
+        error : 
+           function(){ 
+           console.log("no");
+           alert("error"); }
+});
+
+}
+
+
 </script>
 <!--여기까지 넣어주삼 -->
 <style media="screen" id="dayspedia_widget_58044d7e23cf17ec_style">
@@ -522,18 +547,15 @@ var bDisplay = true; function doDisplay(){
          
       </div>
 
-
-
-      <div class="card cara_img">
+   
+   <div class="card cara_img">
          <div class="card-body">
             <h5 class="fw-bold" style="font-size: 17px;'">오늘의 추천 화장품</h5>
             <br>
-            <p class="card-text">Act+Acre</p>
-            <p class="card-text">Restorative Hair Mask</p>
+            <p class="card-text" id="recomm_name"></p>
          </div>
-         <img src="assets/img/cos_skin.jpg" class="card-img-bottom" alt="...">
+         <img src="assets/img/cos_skin.jpg" class="card-img-bottom" alt="..." id="recomm_img">
       </div>
-   
    
    
    

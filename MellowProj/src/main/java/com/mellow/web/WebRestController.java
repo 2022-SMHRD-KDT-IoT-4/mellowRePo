@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mellow.domain.CosmeticVO;
 import com.mellow.domain.cosmeticinfoVO;
+import com.mellow.domain.weatherVO;
 import com.mellow.mapper.mellowMapper;
 
 @Controller
@@ -31,7 +32,8 @@ public class WebRestController {
 	public static String temp = "";
 	public static int cnt = 0;
 	public static float sum = 0;
-
+	int sunData=0;
+	
 	@Autowired // self service
 	mellowMapper mapper;
 
@@ -118,12 +120,42 @@ public class WebRestController {
 		return result;
 	}
 	
-	@RequestMapping("/sunInfo.do")
-	public void sunInfo() {
-		moduleDAO dao = new moduleDAO();
-		dao.sunAPI();
-		
-	}
+
+	@RequestMapping("/weatherInfo.do")
+	   public @ResponseBody CosmeticVO sunInfo(String user_id) {
+	      String cos_effect = "";
+	      String yesterday = "2022081800";
+	      String today = "20220817";
+	      
+	      moduleDAO dao = new moduleDAO();
+	      CosmeticVO cosVO = new CosmeticVO();
+	   
+	      sunData = dao.sunAPI(yesterday);
+	      weatherVO vo =dao.weatherAPI(today);
+	      vo.setSunData(sunData);
+	      System.out.println("====================================");
+	      System.out.println("자외선 :"+vo.getSunData());
+	      System.out.println("최고온도 :"+vo.getTmx());
+	      System.out.println("강수확률 :"+vo.getRainPerc());
+	      
+	      cosVO.setUser_id(user_id);
+	      if(vo.getSunData()>6) {
+	         cosVO.setCos_effect("자외선차단");
+	      }else if(vo.getRainPerc()>=70.0) {
+	         // 파우더 제품 추천
+	         cosVO.setCos_effect("파우더");
+	      }else if(vo.getTmx()>28) {
+	         // 쿨링마스크 제품
+	         cosVO.setCos_effect("수분진정");
+	      }else {
+	         // 크림 추천
+	         cosVO.setCos_effect("수분");
+	      }
+	      ArrayList<CosmeticVO> cos_list = mapper.cosRecommend(cosVO);
+	      CosmeticVO cosmetic =cos_list.get(0);
+	      System.out.println(cosmetic);
+	      return cosmetic;
+	   }
 
 	// 냉장고 온도조절, LED ON/OFF 제어
 	@RequestMapping("/sensor.do")
@@ -154,8 +186,9 @@ public class WebRestController {
 	@RequestMapping("/btn.do")
 	public @ResponseBody void tempBtn(String btnoption) {
 		System.out.println(btnoption);
+		System.out.println("들어오는신호");
 		btnOp = btnoption;
-
+		
 	}
 
 	@RequestMapping("/barmodule.do")
