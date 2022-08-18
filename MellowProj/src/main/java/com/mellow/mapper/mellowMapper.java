@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.mellow.domain.CosmeticVO;
 import com.mellow.domain.UserVO;
 import com.mellow.domain.cosmeticinfoVO;
+import com.mellow.domain.csVO;
 
 public interface mellowMapper {
    public UserVO userLogin(UserVO vo);

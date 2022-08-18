@@ -48,6 +48,10 @@ public class MellowController {
 	public void main() {
 
 	}
+	@RequestMapping("/")
+	public String viewMain() {
+		return "../../index";
+	}
 
 	@RequestMapping("/login.do")
 	public String login(UserVO vo, Model model, HttpSession session) {
@@ -62,7 +66,7 @@ public class MellowController {
 			return "../../index";
 		} else {
 			System.out.println("login error!");
-			return "../../login";
+			return "../../login2";
 		}
 	}
 

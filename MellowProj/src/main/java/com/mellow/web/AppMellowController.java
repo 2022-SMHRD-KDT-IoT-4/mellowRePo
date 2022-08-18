@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mellow.domain.CosmeticVO;
 import com.mellow.domain.UserVO;
+import com.mellow.domain.csVO;
 import com.mellow.mapper.mellowMapper;
 
 @Controller
@@ -33,13 +34,13 @@ public class AppMellowController {
 
 	private String user_id;
 	 //회원가입
-	   @RequestMapping("/join.do")
-	   public String gojoin() {
+	   @RequestMapping("/appjoin.do")
+	   public String gojoin(UserVO vo) {
 		   return "join";
 	   }
 	   
-	   @PostMapping("/join.do")
-	   public String join(UserVO vo, Model model) {
+	   @PostMapping("/appjoin.do")
+	   public @ResponseBody String appjoin(UserVO vo, Model model) {
 		   
 		   System.out.println("안드로이드 vo" + vo);
 		   int result = mapper.userJoin(vo);
@@ -47,14 +48,14 @@ public class AppMellowController {
 		   
 		   String url = "";
 	       model.addAttribute("vo", vo);
-	       if (result >0) {
-	         url = "join.do";
+	       if (result > 0) {
+	         url = "success";
 	         System.out.println("회원가입성공");
 	      } else {
-	         url = "join.do";
+	         url = "";
 	      }
 	      
-	      return "redirect:/" + url;
+	      return url;
 	   }
 	   
 	   
@@ -322,27 +323,75 @@ public class AppMellowController {
 		   
 	   
 	   
-//	   @RequestMapping("/cosmetic_delete.do")
-//	   public @ResponseBody JSONObject cosmetic_delete(CosmeticVO vo,Model model){
-//		   System.out.println(vo.getReq_seq());
-//		   //System.out.println(vo.getCos_name());
-//		   
-//		   CosmeticVO result=mapper.cosmetic_delete(vo);
-//		   System.out.println(result);
-//		   JSONObject vo1=new JSONObject();
-//		   vo1.put("list", result);
-//		   String url="";
-//		   
-//		   if (result!=null) {
-//			   System.out.println("delete success");
-//			   return vo1;
-//		   }else {
-//			   System.out.println("delete fail");
-//			   return null;
-//		   }
-//		   
-//	   }
-	   
+			   // 여기는 1:1 문의하기위한 값을 데이터베이스에 저장하기 위한 값
+			   @RequestMapping("/incuiryInsert.do")
+			   public String incuiry(csVO cs, Model model){
+			      // ResponseBody를 사용하는 이유는 안드로이드에서는 서버이동이 일어나지 않기 때문에 일어난다.
+			      System.out.println(cs.getQ_subject());
+			      System.out.println(cs.getQ_content());
+			      System.out.println(cs.getUser_id());
+			      
+			      System.out.println("요청들어옴");
+			      
+			      int result = mapper.incuiryInsert(cs);
+			      System.out.println(result);
+			      String url = "";
+			      model.addAttribute("vo1", cs);
+			      
+			      
+			      return "redirect:/";
+			      
+			   }
+			   
+			   // 문의사항 내역을 출력하기 위한 컨트롤러
+			   @RequestMapping("/incuirylist.do")
+			   public @ResponseBody JSONObject cslist(String user_id) {
+			      System.out.println(user_id);
+			      //String data_title = response
+			      System.out.println("incuirylist.do 서버 요청 들어옴!");
+	      
+			         ArrayList<csVO> result = mapper.csList(user_id);
+			       System.out.println(result);
+			      
+			       JSONObject jsonMain = new JSONObject();
+			       JSONArray array = new JSONArray();
+			       
+			       SimpleDateFormat sdfYMD = new SimpleDateFormat("yyyy-MM-dd");
+			       
+			       try {
+			          for (int i = 0; i < result.size(); i++) {
+			             
+			             JSONObject row = new JSONObject();
+			             
+			             // 작성 번호
+			             row.put("q_seq", result.get(i).getQ_seq());
+			             
+			             // 작성자
+			             row.put("user_id", result.get(i).getUser_id());
+			             
+			             // 작성날짜
+			             row.put("q_date", result.get(i).getQ_date());
+			             
+			             // 작성 제목
+			             row.put("q_subject", result.get(i).getQ_subject());
+			             
+			             // 작성 내용
+			             row.put("q_content", result.get(i).getQ_content());
+			             
+			             // 첨부파일
+			             row.put("q_file", result.get(i).getQ_file());
+			             
+			             array.add(i, row);
+			          }
+			          		          
+			          jsonMain.put("cs", array);		          
+			       } catch (Exception e) {
+			          e.printStackTrace();
+			       }		       
+			       System.out.println("요청들어옴");
+			       
+			       return jsonMain;	      
+			   }
 	   
 	   
 	   
